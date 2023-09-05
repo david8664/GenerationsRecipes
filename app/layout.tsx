@@ -4,6 +4,7 @@ import Foot from "@/components/shared/Foot";
 import type { Metadata } from "next";
 import { Assistant } from "next/font/google";
 import Context from "../component/shared/Context";
+import SearchSection from "../component/ui/SearchSection";
 
 const assistant = Assistant({
   subsets: ["hebrew", "latin"],
@@ -22,10 +23,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
-      <body className={`${assistant.className}`}>
+      <body className={`${assistant.className} bg-slate-400`}>
         <Context>
+
+          <div >
+          <SearchSection/>
+          </div>
           <Navbar />
-          <main>{children}</main>
+          <main className="flex items-start justify-center">{children}</main>
           <Foot />
         </Context>
       </body>
