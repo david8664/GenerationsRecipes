@@ -3,7 +3,7 @@ import Navbar from "@/components/shared/Navbar";
 import Foot from "@/components/shared/Foot";
 import type { Metadata } from "next";
 import { Assistant } from "next/font/google";
-import SearchSection from "@/components/shared/ui/SearchSection";
+import SearchSection from "@/components/ui/SearchSection";
 
 const assistant = Assistant({
   subsets: ["hebrew", "latin"],
