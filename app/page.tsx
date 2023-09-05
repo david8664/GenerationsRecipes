@@ -20,7 +20,6 @@ return (
           Green to blue
         </span>
       </button>
-     
     </main>
   );
 }
