@@ -8,7 +8,7 @@ return post
 export default async function Home() {
   
   const allPost= await getPost()
-  console.log(allPost)
+  // console.log(allPost)
 
 return (
     <main className="flex flex-col items-center justify-between p-24">

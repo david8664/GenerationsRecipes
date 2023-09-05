@@ -1,8 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Assistant } from "next/font/google";
-import Navbar from '../component/shared/Navbar'
-
+import Navbar from "../component/shared/Navbar";
+import Context from "../component/shared/Context";
 
 const assistant = Assistant({
   subsets: ["hebrew", "latin"],
@@ -22,11 +22,11 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body className={`${assistant.className} bg-gray-20 text-gray-950 `}>
-
-        <Navbar/>
-   
-        <div className="flex flex-col items-center justify-between "></div>
-        <main className="p-4 ">{children}</main>
+        <Context>
+          <Navbar />
+          <div className="flex flex-col items-center justify-between "></div>
+          <main className="p-4 ">{children}</main>
+        </Context>
       </body>
     </html>
   );

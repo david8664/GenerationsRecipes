@@ -1,18 +1,27 @@
-// "use client"
-import Link from 'next/link'
-// import React, { useState } from 'react'
+"use client";
+import Link from "next/link";
+import React, { useContext, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-
-
+import {allContexts} from './Context'
 
 export default function Search() {
-    // const [textSearch, setTextSearch] = useState("")
+  const {textOfSearch, setTextOfSearch} = useContext(allContexts);
+
+  // let linkId = document.getElementById("linksearch");
   return (
-    <div>Search
-        {/* <Link to={'/search/'+textSearch} id="linksearch" type='hidden'></Link> */}
-        {/* <input type="search" className='bg-orange-400' name="search"  value=" 654" id="inputsearch" /> */}
-        {/* <button
-         type="button"><BiSearchAlt/></button> */}
+    <div>
+      Search
+      <Link href={"/search/" + textOfSearch} id="linksearch" >
+        <BiSearchAlt /></Link>
+     
+      <input
+        type="search"
+        className="bg-orange-400"
+        name="search"
+        id="inputsearch"
+        onChange={(e) => setTextOfSearch(e.target.value)}
+      />
+    
     </div>
-  )
+  );
 }
