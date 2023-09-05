@@ -2,7 +2,7 @@
     {
         "id": 1,
         "image": "🍔",
-        "recipeName": "Classic Burger",
+        "name": "Classic Burger",
         "description": "A delicious and juicy homemade burger that's perfect for a family BBQ.",
         "preparationTime": "20 minutes",
         "ingredients": [
@@ -37,7 +37,7 @@
     {
         "id": 2,
         "image": "🥗",
-        "recipeName": "Greek Salad",
+        "name": "Greek Salad",
         "description": "A refreshing and healthy Greek salad with a tangy dressing.",
         "preparationTime": "15 minutes",
         "ingredients": [
@@ -74,7 +74,7 @@
     {
         "id": 2,
         "image": "🍕",
-        "recipeName": "Homemade Pizza",
+        "name": "Homemade Pizza",
         "description": "Create your own customized pizza with your favorite toppings.",
         "preparationTime": "30 minutes",
         "ingredients": [
@@ -113,7 +113,7 @@
     {
         "id": 3,
         "image": "🍕",
-        "recipeName": "Homemade Pizza",
+        "name": "Homemade Pizza",
         "description": "Create your own customized pizza with your favorite toppings.",
         "preparationTime": "30 minutes",
         "ingredients": [
@@ -152,7 +152,7 @@
     {
         "id": 4,
         "image": "🍝",
-        "recipeName": "Spaghetti Carbonara",
+        "name": "Spaghetti Carbonara",
         "description": "A classic Italian pasta dish with creamy egg and cheese sauce.",
         "preparationTime": "20 minutes",
         "ingredients": [
@@ -189,7 +189,7 @@
     {
         "id": 5,
         "image": "🥞",
-        "recipeName": "Fluffy Pancakes",
+        "name": "Fluffy Pancakes",
         "description": "Make light and fluffy pancakes for a perfect breakfast treat.",
         "preparationTime": "15 minutes",
         "ingredients": [
