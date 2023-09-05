@@ -3,7 +3,7 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 import recipes from "../../Data/recipesDb.json";
 import { useState, useEffect } from "react";
-import RecipeCard from "@/components/shared/ui/RecipeCard";
+import RecipeCard from "@/components/ui/RecipeCard";
 
 export default function search() {
   const searchResult = useSearchParams();
