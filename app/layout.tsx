@@ -3,6 +3,7 @@ import Navbar from "@/components/shared/Navbar";
 import Foot from "@/components/shared/Foot";
 import type { Metadata } from "next";
 import { Assistant } from "next/font/google";
+import SearchSection from "@/components/shared/ui/SearchSection";
 
 const assistant = Assistant({
   subsets: ["hebrew", "latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="he" dir="rtl">
       <body className={`${assistant.className}`}>
         <Navbar />
+        <SearchSection />
         <main>{children}</main>
         <Foot />
       </body>

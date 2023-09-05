@@ -1,6 +1,5 @@
-import Link from "next/link";
-import RecipeCard from "../../../../components/shared/recipeCard";
-import allRecipes from "../../../../public/recipesDb.json";
+import RecipeCard from "../../../../components/shared/ui/RecipeCard";
+import allRecipes from "@/Data/recipesDb.json";
 
 const getRecipes = async () => {
   // const result = await fetch("url");
@@ -14,13 +13,9 @@ export default async function recipes() {
 
   return (
     <div>
-      <ul className="flex flex-row gap-2 flex-wrap">
-        {allRecipes.map((recipe) => (
-          <Link href={`/recipe/${recipe.id}`}>
-            <li>
-              <RecipeCard recipe={recipe} key={recipe.id} />
-            </li>
-          </Link>
+      <ul className="flex flex-row flex-wrap gap-6 items-center justify-between p-24">
+        {allRecipes.map((recipe, i) => (
+          <RecipeCard recipe={recipe} key={i} />
         ))}
       </ul>
     </div>
