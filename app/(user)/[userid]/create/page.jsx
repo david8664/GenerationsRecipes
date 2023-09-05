@@ -1,8 +1,21 @@
+"use client";
 export default function createRecipe() {
   return (
-    <form>
-      <input type="text" name="recipeName" id="recipeName" />
-      input
+    <form className="even:border even:border-black flex flex-col gap-2 w-min justify-center">
+      <input type="text" placeholder={`שם`} name="recipeName" id="recipeName" />
+      <textarea
+        name="discription"
+        id="discription"
+        placeholder="תיאור"
+        cols="30"
+        rows="3"
+      ></textarea>
+      <input
+        type="number"
+        name="preparationTime"
+        min={0.5}
+        placeholder="זמן הכנה (לדקה)"
+      />
       {/* image 
 Recipe Name
 Discription

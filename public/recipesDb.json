@@ -1,0 +1,230 @@
+[
+    {
+        "id": 1,
+        "image": "🍔",
+        "recipeName": "Classic Burger",
+        "description": "A delicious and juicy homemade burger that's perfect for a family BBQ.",
+        "preparationTime": "20 minutes",
+        "ingredients": [
+            "1 lb ground beef",
+            "1/2 teaspoon salt",
+            "1/4 teaspoon black pepper",
+            "4 hamburger buns",
+            "Lettuce, tomato, onion, and condiments of your choice"
+        ],
+        "instructions": [
+            "Preheat your grill or stovetop griddle to medium-high heat.",
+            "Divide the ground beef into 4 equal portions and shape them into patties.",
+            "Season both sides of the patties with salt and black pepper.",
+            "Place the patties on the grill or griddle and cook for about 4-5 minutes on each side or until they reach your desired level of doneness.",
+            "Toast the hamburger buns on the grill for a minute or two until they're lightly browned.",
+            "Assemble the burgers by placing lettuce, tomato, onion, and condiments on the bottom bun, adding the cooked patty, and topping with the other half of the bun.",
+            "Serve immediately and enjoy!"
+        ],
+        "tags": [
+            "Burger",
+            "BBQ",
+            "Grilling"
+        ],
+        "yield": "4 servings",
+        "equipmentNeeded": [
+            "Grill or stovetop griddle",
+            "Spatula",
+            "Tongs"
+        ],
+        "private": false
+    },
+    {
+        "id": 2,
+        "image": "🥗",
+        "recipeName": "Greek Salad",
+        "description": "A refreshing and healthy Greek salad with a tangy dressing.",
+        "preparationTime": "15 minutes",
+        "ingredients": [
+            "2 cups diced cucumbers",
+            "2 cups diced tomatoes",
+            "1/2 cup diced red onion",
+            "1 cup Kalamata olives",
+            "1 cup crumbled feta cheese",
+            "1/4 cup extra-virgin olive oil",
+            "2 tablespoons red wine vinegar",
+            "1 teaspoon dried oregano",
+            "Salt and pepper to taste"
+        ],
+        "instructions": [
+            "In a large salad bowl, combine the cucumbers, tomatoes, red onion, olives, and feta cheese.",
+            "In a small bowl, whisk together the olive oil, red wine vinegar, dried oregano, salt, and pepper to make the dressing.",
+            "Pour the dressing over the salad and toss to combine.",
+            "Chill in the refrigerator for at least 30 minutes before serving.",
+            "Serve as a refreshing side dish or a light meal."
+        ],
+        "tags": [
+            "Salad",
+            "Greek",
+            "Healthy"
+        ],
+        "yield": "4 servings",
+        "equipmentNeeded": [
+            "Salad bowl",
+            "Whisk",
+            "Measuring cups and spoons"
+        ],
+        "private": false
+    },
+    {
+        "id": 2,
+        "image": "🍕",
+        "recipeName": "Homemade Pizza",
+        "description": "Create your own customized pizza with your favorite toppings.",
+        "preparationTime": "30 minutes",
+        "ingredients": [
+            "Pizza dough (store-bought or homemade)",
+            "1/2 cup pizza sauce",
+            "1 1/2 cups shredded mozzarella cheese",
+            "Toppings of your choice (e.g., pepperoni, bell peppers, mushrooms, onions)",
+            "Olive oil for brushing"
+        ],
+        "instructions": [
+            "Preheat your oven to 475°F (245°C) and place a pizza stone or baking sheet in the oven to heat.",
+            "Roll out the pizza dough on a floured surface to your desired thickness.",
+            "Transfer the rolled-out dough to a piece of parchment paper.",
+            "Spread the pizza sauce evenly over the dough, leaving a small border around the edges.",
+            "Sprinkle the shredded mozzarella cheese over the sauce.",
+            "Add your favorite toppings.",
+            "Brush the pizza crust edges with olive oil.",
+            "Carefully transfer the pizza (on the parchment paper) to the preheated pizza stone or baking sheet in the oven.",
+            "Bake for 10-12 minutes or until the crust is golden and the cheese is bubbly and slightly browned.",
+            "Remove from the oven, slice, and enjoy your homemade pizza!"
+        ],
+        "tags": [
+            "Pizza",
+            "Homemade",
+            "Italian"
+        ],
+        "yield": "1 pizza (6-8 slices)",
+        "equipmentNeeded": [
+            "Pizza stone or baking sheet",
+            "Parchment paper",
+            "Rolling pin",
+            "Pizza cutter"
+        ],
+        "private": false
+    },
+    {
+        "id": 3,
+        "image": "🍕",
+        "recipeName": "Homemade Pizza",
+        "description": "Create your own customized pizza with your favorite toppings.",
+        "preparationTime": "30 minutes",
+        "ingredients": [
+            "Pizza dough (store-bought or homemade)",
+            "1/2 cup pizza sauce",
+            "1 1/2 cups shredded mozzarella cheese",
+            "Toppings of your choice (e.g., pepperoni, bell peppers, mushrooms, onions)",
+            "Olive oil for brushing"
+        ],
+        "instructions": [
+            "Preheat your oven to 475°F (245°C) and place a pizza stone or baking sheet in the oven to heat.",
+            "Roll out the pizza dough on a floured surface to your desired thickness.",
+            "Transfer the rolled-out dough to a piece of parchment paper.",
+            "Spread the pizza sauce evenly over the dough, leaving a small border around the edges.",
+            "Sprinkle the shredded mozzarella cheese over the sauce.",
+            "Add your favorite toppings.",
+            "Brush the pizza crust edges with olive oil.",
+            "Carefully transfer the pizza (on the parchment paper) to the preheated pizza stone or baking sheet in the oven.",
+            "Bake for 10-12 minutes or until the crust is golden and the cheese is bubbly and slightly browned.",
+            "Remove from the oven, slice, and enjoy your homemade pizza!"
+        ],
+        "tags": [
+            "Pizza",
+            "Homemade",
+            "Italian"
+        ],
+        "yield": "1 pizza (6-8 slices)",
+        "equipmentNeeded": [
+            "Pizza stone or baking sheet",
+            "Parchment paper",
+            "Rolling pin",
+            "Pizza cutter"
+        ],
+        "private": false
+    },
+    {
+        "id": 4,
+        "image": "🍝",
+        "recipeName": "Spaghetti Carbonara",
+        "description": "A classic Italian pasta dish with creamy egg and cheese sauce.",
+        "preparationTime": "20 minutes",
+        "ingredients": [
+            "8 oz spaghetti",
+            "2 large eggs",
+            "1 cup grated Pecorino Romano cheese",
+            "4-6 slices of pancetta or guanciale, diced",
+            "2 cloves garlic, minced",
+            "Salt and black pepper to taste",
+            "Fresh parsley for garnish"
+        ],
+        "instructions": [
+            "Cook the spaghetti in a large pot of salted boiling water until al dente. Reserve about 1 cup of pasta cooking water, then drain the pasta.",
+            "In a bowl, whisk together the eggs and grated Pecorino Romano cheese. Season with black pepper.",
+            "In a skillet, cook the diced pancetta or guanciale until crispy. Add the minced garlic and cook for another minute.",
+            "Remove the skillet from heat and quickly toss the cooked pasta with the pancetta mixture.",
+            "Pour the egg and cheese mixture over the hot pasta and toss quickly to coat. If the sauce is too thick, add some reserved pasta cooking water to achieve the desired consistency.",
+            "Serve immediately, garnished with fresh parsley and extra cheese if desired."
+        ],
+        "tags": [
+            "Pasta",
+            "Italian",
+            "Carbonara"
+        ],
+        "yield": "2 servings",
+        "equipmentNeeded": [
+            "Large pot for boiling pasta",
+            "Skillet",
+            "Whisk",
+            "Measuring cups and spoons"
+        ],
+        "private": true
+    },
+    {
+        "id": 5,
+        "image": "🥞",
+        "recipeName": "Fluffy Pancakes",
+        "description": "Make light and fluffy pancakes for a perfect breakfast treat.",
+        "preparationTime": "15 minutes",
+        "ingredients": [
+            "1 cup all-purpose flour",
+            "2 tablespoons sugar",
+            "1 teaspoon baking powder",
+            "1/2 teaspoon baking soda",
+            "1/4 teaspoon salt",
+            "1 cup buttermilk",
+            "1 large egg",
+            "2 tablespoons unsalted butter, melted",
+            "1 teaspoon vanilla extract",
+            "Butter or oil for cooking"
+        ],
+        "instructions": [
+            "In a large bowl, whisk together the flour, sugar, baking powder, baking soda, and salt.",
+            "In another bowl, whisk together the buttermilk, egg, melted butter, and vanilla extract.",
+            "Pour the wet ingredients into the dry ingredients and stir until just combined. Be careful not to overmix; a few lumps are okay.",
+            "Heat a griddle or non-stick skillet over medium heat and lightly grease with butter or oil.",
+            "Pour 1/4 cup of batter onto the hot griddle for each pancake.",
+            "Cook until bubbles form on the surface and the edges look set (about 2-3 minutes), then flip and cook for an additional 1-2 minutes until golden brown.",
+            "Serve the pancakes hot with your favorite toppings, such as maple syrup, fresh berries, or whipped cream."
+        ],
+        "tags": [
+            "Breakfast",
+            "Pancakes",
+            "Brunch"
+        ],
+        "yield": "8 pancakes",
+        "equipmentNeeded": [
+            "Griddle or non-stick skillet",
+            "Mixing bowls",
+            "Whisk",
+            "Spatula"
+        ],
+        "private": true
+    }
+]
