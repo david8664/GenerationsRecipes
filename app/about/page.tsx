@@ -1,63 +1,73 @@
 const AboutUs = () => {
   return (
     <div className="bg-gray-100 p-4">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-semibold mb-4">About Us</h1>
-        <p className="text-lg mb-4">
-          Welcome to GenerationsRecipes! At GenerationsRecipes, we are
-          passionate about preserving and celebrating the culinary traditions
-          that have been passed down through our family for generations.
+      <div className="max-w-3xl mx-auto mb-4">
+        <h1 className="text-2xl font-semibold">קצת עלינו</h1>
+        <p className="text-base">
+          ברוכים הבאים ל-GenerationsRecipes! ב-GenerationsRecipes, אנו נלהבים
+          לשמר ולחגוג את המסורות הקולינריות שעברו במשפחתנו במשך דורות.
         </p>
-        <p className="text-lg mb-4">
-          Our family's kitchen has always been a place of creativity, learning,
-          and togetherness. We believe that recipes are more than just
-          instructions; they are a link to our past and a gift to future
-          generations.
+        <p className="text-base">
+          המטבח של המשפחה שלנו תמיד היה מקום של יצירתיות, למידה ויחד. אנו
+          מאמינים שמתכונים הם יותר מסתם הוראות; הם מהווים קישור לעבר שלנו ומתנה
+          לדורות הבאים.
         </p>
-        <p className="text-lg mb-4">
-          Our mission is simple: to share the joy of cooking and the magic of
-          family recipes with you. We curate a collection of both classic and
-          contemporary dishes that have been perfected over time, ensuring that
-          you can recreate them in your own kitchen with ease.
+        <p className="text-base">
+          המשימה שלנו פשוטה: לחלוק איתכם את חדוות הבישול ואת הקסם של מתכונים
+          משפחתיים. יש לנו אוסף של מנות קלאסיות ועכשוויות כאחד ששוכללו עם הזמן,
+          מה שמבטיח שתוכלו ליצור אותן מחדש במטבח שלכם בקלות.
         </p>
-        <p className="text-lg mb-4">
-          Thank you for joining us on this delicious journey through the
-          generations. We invite you to explore our recipes, create lasting
-          memories with your loved ones, and savor the flavors that connect us
-          all.
+        <p className="text-base">
+          תודה שהצטרפת אלינו למסע הטעים הזה לאורך הדורות. אנו מזמינים אתכם לחקור
+          את המתכונים שלנו, ליצור זיכרונות מתמשכים עם יקיריכם, ולהתענג על הטעמים
+          המחברים את כולנו.
         </p>
-        <p className="text-lg mb-4">
-          From our family to yours, The GenerationsRecipes Team
+        <p className="text-base">מהמשפחה שלנו לשלך, צוות המתכונים של דורות</p>
+        <h2 className="text-xl font-semibold">הסיפור שלנו</h2>
+        <p className="text-base">
+          מתכוני דורות היא מחווה לקשרים החזקים שנוצרים בארוחה משותפת ולטעמים
+          הנצחיים שמחברים אותנו לשורשים שלנו. המטבח של המשפחה שלנו תמיד היה מקום
+          של יצירתיות, למידה ויחד. אנו מאמינים שמתכונים הם יותר מסתם הוראות; הם
+          מהווים קישור לעבר שלנו ומתנה לדורות הבאים.
         </p>
-        <h2 className="text-3xl font-semibold mb-4">Our Story</h2>
-        <p className="text-3xl mb-4">
-          GenerationsRecipes is a tribute to the strong bonds that form over a
-          shared meal and the timeless flavors that connect us to our roots. Our
-          family's kitchen has always been a place of creativity, learning, and
-          togetherness. We believe that recipes are more than just instructions;
-          they are a link to our past and a gift to future generations.
+        <h2 className="text-xl font-semibold">המשימה שלנו</h2>
+        <p className="text-base">
+          המשימה שלנו פשוטה: לחלוק איתכם את חדוות הבישול ואת הקסם של מתכונים
+          משפחתיים. אנו אוצרים אוסף של מנות קלאסיות ועכשוויות כאחד ששוכללו עם
+          הזמן, מה שמבטיח שתוכלו ליצור אותן מחדש במטבח שלכם בקלות.
         </p>
-        <h2 className="text-sxl font-semibold mb-4">Our Mission</h2>
-        <p>
-          Our mission is simple: to share the joy of cooking and the magic of
-          family recipes with you. We curate a collection of both classic and
-          contemporary dishes that have been perfected over time, ensuring that
-          you can recreate them in your own kitchen with ease.
+        <h2 className="text-xl font-semibold">מה תמצא כאן</h2>
+        <ul>
+          <li className="text-lg font-semibold list-disc list-inside">
+            אוצרות מסורתיים:
+          </li>
+          <p className="text-base">
+            חקור את המתכונים שהיו במשפחתנו במשך עשרות שנים, שהוכנו באהבה על ידי
+            הסבתות והאימהות שלנו. המנות הללו עמדו במבחן הזמן וממשיכות להביא נחמה
+            ושמחה לשולחנות שלנו.
+          </p>
+          <li className="text-lg font-semibold list-disc list-inside">
+            פיתולים מודרניים:
+          </li>
+          <p className="text-base">
+            אנו מאמצים חדשנות גם במטבח. גלה תפיסות חדשות על המועדפים הישנים,
+            כאשר אנו מוסיפים טוויסט מודרני למתכונים קלאסיים, מתאימים אותם לטעמים
+            ולסגנון החיים של היום.
+          </p>
+          <li className="text-lg font-semibold list-disc list-inside">
+            עצות מומחים:
+          </li>
+          <p className="text-base">
+            לצד כל מתכון, תמצאו טיפים, טריקים ותובנות שאספנו מניסיון של שנים.
+            אנחנו כאן כדי לעזור לך להפוך לשף ביתי בטוח ומיומן.
+          </p>
+        </ul>
+        <p className="text-base">
+          תודה שהצטרפת אלינו למסע הטעים הזה לאורך הדורות. אנו מזמינים אתכם לחקור
+          את המתכונים שלנו, ליצור זיכרונות מתמשכים עם יקיריכם, ולהתענג על הטעמים
+          המחברים את כולנו.
         </p>
-        <h2>What You'll Find Here</h2>
-        <h3>Traditional Treasures:</h3>
-        <span>
-          Explore the recipes that have been in our family for decades, lovingly
-          prepared by our grandmothers and mothers. These dishes have stood the
-          test of time and continue to bring comfort and joy to our tables.
-        </span>
-        <h3>Modern Twists:</h3>
-        <span>
-          We also embrace innovation in the kitchen. Discover new takes on old
-          favorites, as we add a modern twist to classic recipes, adapting them
-          to today's tastes and lifestyles.
-        </span>
-        <h3>Expert Tips: </h3>
+        <p className="text-base">מהמשפחה שלנו לשלך, צוות GenerationsRecipes</p>
       </div>
     </div>
   );
