@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={`${assistant.className}`}>
         <Navbar />
         <SearchSection />
-        <main>{children}</main>
+        <main className="">{children}</main>
         <Foot />
       </body>
     </html>
