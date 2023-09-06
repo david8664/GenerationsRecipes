@@ -74,87 +74,86 @@ export default function login() {
   }, [dataOfForm]);
 
   return (
-    <form onSubmit={handleSubmit} className={styles.from}>
-    <h1>Welcome to Sounds good website</h1>
-    <div className="">
+    <form
+      onSubmit={() => console.log(dataOfForm)}
+      className="flex flex-wrap flex-col gap-2 justify-center
+     text-center bg-green-600 w-80 h-[200px] content-center rounded-2xl"
+    >
+      {/* <div> */}
       <input
         type="email"
-        value={email}
+        id="email"
         placeholder="Email"
-        onChange={(e) => setEmail(e.target.value.trim())}
-        className={styles.emailInput}
+        className="top-2 rounded-lg"
+        onChange={(e) =>
+          setDataOfForm({ ...dataOfForm, email: e.target.value })
+        }
       />
-    </div>
-    <div className="">
       <input
         type="password"
-        value={password}
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value.trim())} // Changed onInput to onChange
-        className={styles.passwordInput}
+        id="pass"
+        placeholder="pass"
+        className=" rounded-lg"
+        onChange={(e) =>
+          setDataOfForm({ ...dataOfForm, password: e.target.value })
+        }
       />
-    </div>
-    <label className={styles.rememberMe}>
-      <input
-        type="checkbox"
-        checked={rememberMe}
-        onChange={(e) => setRememberMe(e.target.checked)}
-      />
-      Remember Me
-    </label>
-    <button type="submit" className={styles.login}>
-      Login
-    </button>
-    <span className={styles.forgotPassword} onClick={handleForgotPassword}>
-      Forgot password?
-    </span>
+      {/* <LoginButton/> */}
+      <button
+        type="submit"
+        className="bg-lime-500 rounded-lg"
+        onClick={(e) => checkInputs(e)}
+      >
+        value
+      </button>
+      <h2 className="text-red-700">{errorCath?.message}</h2>
+      {/* </div> */}
+    </form>
 
-    <div className={styles.signUp}>
-      Not a member?
-      <Link to={"/register"} className={styles.signUp}>
-        Sign up now
-      </Link>
-    </div>
-    {errorMessage && (
-      <span className={styles.errorMessage}>{errorMessage}</span>
-    )}
-  </form>
-</div>
-
-    // <form
-    //   onSubmit={() => console.log(dataOfForm)}
-    //   className="flex flex-wrap flex-col gap-2 justify-center
-    //  text-center bg-green-600 w-80 h-[200px] content-center rounded-2xl"
-    // >
-    //   {/* <div> */}
-    //   <input
-    //     type="email"
-    //     id="email"
-    //     placeholder="Email"
-    //     className="top-2 rounded-lg"
-    //     onChange={(e) =>
-    //       setDataOfForm({ ...dataOfForm, email: e.target.value })
-    //     }
-    //   />
-    //   <input
-    //     type="password"
-    //     id="pass"
-    //     placeholder="pass"
-    //     className=" rounded-lg"
-    //     onChange={(e) =>
-    //       setDataOfForm({ ...dataOfForm, password: e.target.value })
-    //     }
-    //   />
-    //   {/* <LoginButton/> */}
-    //   <button
-    //     type="submit"
-    //     className="bg-lime-500 rounded-lg"
-    //     onClick={(e) => checkInputs(e)}
-    //   >
-    //     value
+    //   <form onSubmit={handleSubmit} className={styles.from}>
+    //   <h1>Welcome to Sounds good website</h1>
+    //   <div className="">
+    //     <input
+    //       type="email"
+    //       value={email}
+    //       placeholder="Email"
+    //       onChange={(e) => setEmail(e.target.value.trim())}
+    //       className={styles.emailInput}
+    //     />
+    //   </div>
+    //   <div className="">
+    //     <input
+    //       type="password"
+    //       value={password}
+    //       placeholder="Password"
+    //       onChange={(e) => setPassword(e.target.value.trim())} // Changed onInput to onChange
+    //       className={styles.passwordInput}
+    //     />
+    //   </div>
+    //   <label className={styles.rememberMe}>
+    //     <input
+    //       type="checkbox"
+    //       checked={rememberMe}
+    //       onChange={(e) => setRememberMe(e.target.checked)}
+    //     />
+    //     Remember Me
+    //   </label>
+    //   <button type="submit" className={styles.login}>
+    //     Login
     //   </button>
-    //   <h2 className="text-red-700">{errorCath?.message}</h2>
-    //   {/* </div> */}
+    //   <span className={styles.forgotPassword} onClick={handleForgotPassword}>
+    //     Forgot password?
+    //   </span>
+
+    //   <div className={styles.signUp}>
+    //     Not a member?
+    //     <Link to={"/register"} className={styles.signUp}>
+    //       Sign up now
+    //     </Link>
+    //   </div>
+    //   {errorMessage && (
+    //     <span className={styles.errorMessage}>{errorMessage}</span>
+    //   )}
     // </form>
   );
 }
