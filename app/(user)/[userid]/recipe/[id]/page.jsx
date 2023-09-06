@@ -1,19 +1,19 @@
 import allRecipes from "@/Data/recipesDb.json";
 
-const getRecipeById = async (id) => {
-  // const res = await fetch("url"); // get recipe by id
-  if (!res.ok) throw new Error("Couldn't find recipe");
-  // const recipe = await res.json();
-  const recipe = allRecipes[0];
-  if (!recipe?.id) throw new Error("Couldn't find recipe");
-  return recipe;
-};
-
 export const generteStaticParams = async () => {
   // const res = await fetch("url"); // take all recipes
   // const recipes = await res.json();
   const allRcipes = await recipes;
   return recipes.map((recipe) => ({ id: String(recipe.id) }));
+};
+
+const getRecipeById = async (id) => {
+  // const res = await fetch("url"); // get recipe by id
+  // if (!res.ok) throw new Error("Couldn't find recipe");
+  // const recipe = await res.json();
+  const recipe = allRecipes[0];
+  if (!recipe?.id) throw new Error("Couldn't find recipe");
+  return recipe;
 };
 
 export default async function Page({ params }) {

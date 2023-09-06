@@ -1,5 +1,6 @@
-import RecipeCard from "../../../../components/shared/ui/RecipeCard";
-import allRecipes from "@/Data/recipesDb.json";
+import RecipeCard from "../../../../components/ui/RecipeCard/Card";
+import allRecipes from "../../../../Data/recipesDb.json";
+// make striming
 
 const getRecipes = async () => {
   // const result = await fetch("url");
@@ -15,7 +16,7 @@ export default async function recipes() {
     <div>
       <ul className="flex flex-row flex-wrap gap-6 items-center justify-between p-24">
         {allRecipes.map((recipe, i) => (
-          <RecipeCard recipe={recipe} key={i} />
+          <RecipeCard recipe={recipe} key={recipe.id} />
         ))}
       </ul>
     </div>

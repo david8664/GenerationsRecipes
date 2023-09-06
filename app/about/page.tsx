@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const AboutUs = () => {
   return (
-    <div className="relative h-full">
+    <div className="relative">
       <Image
         src={
           "https://cdn.pixabay.com/photo/2017/09/22/19/48/tomato-2776824_1280.jpg"
