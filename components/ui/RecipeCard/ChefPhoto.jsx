@@ -12,7 +12,7 @@ export default function ChefPhoto({ chefName, img }) {
           width={50}
           height={50}
           alt={"chef profile"}
-          className="rounded-full z-10 absolute top-2 left-2 object-cover aspect-square"
+          className="rounded-full z-10 top-2 left-2 object-cover aspect-square"
         />
       </div>
     </Link>

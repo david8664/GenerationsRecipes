@@ -2,22 +2,22 @@ const mongoose = require("mongoose");
 
 const recipesSchema = new mongoose.Schema(
   {
-    name: { type: String, required },
+    name: { type: String, required: true },
     upload: { type: String, default: new Date() },
-    image: { type: String, required },
-    description: { type: String, required },
-    preparationTime: { type: Number, required },
+    image: { type: String, required: true },
+    description: { type: String, required: true },
+    preparationTime: { type: Number, required: true },
     ingredients: [String],
-    instructions: { type: String, required },
+    instructions: { type: String, required: true },
     tags: [String],
-    yield: { type: Number, required },
+    yield: { type: Number, required: true },
     private: { type: Boolean, default: false },
     isActive: { type: Boolean, default: true },
   },
   {
-    timestamps: true,
+    timestamps: true, // create last change time and create user time
   }
 );
 
-const userModel = mongoose.model("recipes", recipesSchema);
-module.exports = userModel;
+const recipesModel = mongoose.model("recipes", recipesSchema);
+export default recipesModel;

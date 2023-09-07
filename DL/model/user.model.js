@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-require("./recipes.model");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
@@ -15,5 +14,5 @@ const userSchema = new mongoose.Schema({
   isActive: { type: Boolean, default: true },
 });
 
-const userModel = mongoose.model("User", userSchema);
-module.exports = userModel;
+const userModel = mongoose.models.Users || mongoose.model("Users", userSchema);
+export default userModel;
