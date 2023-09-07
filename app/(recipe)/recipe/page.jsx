@@ -1,5 +1,5 @@
-import RecipeCard from "../../../../components/ui/RecipeCard/Card";
-import allRecipes from "../../../../Data/recipesDb.json";
+import RecipeCard from "../../../components/ui/RecipeCard/Card";
+import allRecipes from "../../../Data/recipesDb.json";
 // make striming
 
 const getRecipes = async () => {
