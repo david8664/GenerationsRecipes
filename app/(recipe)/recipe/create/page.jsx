@@ -7,6 +7,8 @@ export default function createRecipe() {
     { equipmentName: "", amount: "" },
   ]);
 
+  const [imageList, setImageList] = useState();
+
   // useEffect(()=>{addEquipment()},[])
   useEffect(() => {}, [equipmentList]);
 
@@ -32,6 +34,7 @@ export default function createRecipe() {
     <div className="w-full flex justify-center">
       <form className="even:border even:border-black items-start  m-3 flex flex-col gap-2 w-min justify-center">
         <input
+        className="w-full"
           type="text"
           placeholder=" שם המתכון"
           name="recipeName"
@@ -40,8 +43,8 @@ export default function createRecipe() {
         <textarea
           name="discription"
           id="discription"
-          placeholder="תיאור (200 תווים)"
-          cols="30"
+          placeholder="תיאור (70 תווים todo)"
+          cols="46"
           rows="5"
         ></textarea>
         <input
@@ -80,12 +83,12 @@ export default function createRecipe() {
                   }}
                 />
                 <input
-                  className=" mr-2"
+                  className=" mr-2 w-28"
                   type="text"
                   name="amount"
                   id={index}
                   value={item.amount}
-                  placeholder="כמות"
+                  placeholder="כמות ומידה "
                   onChange={(e) => {
                     updateEquipment(e.target.value, e.target.name, e.target.id);
                   }}
@@ -97,16 +100,16 @@ export default function createRecipe() {
                   }}
                   className="font-semibold mr-1 cursor-pointer"
                 >
-                  {index ? "הסר" : ""}
+                  {index ? "🗑" : " "}
                 </h3>
               </div>
             );
           })}
         </div>
-        <div className="bg-orange-400 rounded-lg inline-flex place-content-between items-center ">
+        <div className="w-full bg-orange-400 rounded-lg inline-flex place-content-between items-center ">
           <h3 className="font-bold">כמות המנות שיצאו -</h3>
           <input
-            className=" w-10 ml-2 text-black"
+            className=" w-10 ml-10 content-start text-center text-black"
             type="number"
             name="yald"
             min={1}
@@ -115,10 +118,8 @@ export default function createRecipe() {
           />
         </div>
 
-
-
-        <div className="bg-zinc-600 rounded-lg text-center mt-6 inline-flex place-content-between items-center ">
-          <h3 className="font-bold w-80"> הוראות הכנה </h3>
+        <div className="w-full bg-zinc-600 rounded-lg text-center mt-6 inline-flex place-content-between items-center ">
+          <h3 className="font-bold w-full"> הוראות הכנה </h3>
           {/* <h3
             className="ml-2"
             onClick={() => {
@@ -127,48 +128,67 @@ export default function createRecipe() {
           >
             +
           </h3> */}
+          {/* Ingredients */}
         </div>
-        <div className="">
-<textarea name="Ingredients" id="Ingredients" cols="42" rows="10"
-className="border  border-fuchsia-600"
-> </textarea>
+        <div className="w-full">
+          <textarea
+            name="Ingredients"
+            id="Ingredients"
+            cols="46"
+            rows="10"
+            className="border  border-fuchsia-600"
+          >
+            {" "}
+          </textarea>
+        </div>
 
-          {/* {equipmentList.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="inline-flex m-1 place-content-between items-center"
-              >
-                <input
-                  type="text"
-                  name="equipmentName"
-                  id={index}
-                  value={item.equipmentName}
-                  placeholder="פעולה
-                   "
-                  onChange={(e) => {
-                    updateEquipment(e.target.value, e.target.name, e.target.id);
-                  }}
-                />
-            
-                <h3
-                  id={index}
-                  onClick={(e) => {
-                    deleteEquipmen(e.target.id);
-                  }}
-                  className="font-semibold mr-1"
-                >
-                  {index ? "הסר" : ""}
-                </h3>
-              </div>
-            );
-          })} */}
+        <div className="mt-5 bg-neutral-700 inline-flex place-content-between items-center rounded-lg w-full">
+          בשרי/פרווה/חלבי?
+          <select
+            name="select1"
+            id=""
+            className="content-start mx-10 text-center"
+          >
+            <option value="0">בחר </option>
+            <option value="1">בשרי</option>
+            <option value="2" selected>
+              פרווה
+            </option>
+            <option value="3">חלבי</option>
+          </select>
         </div>
+        <div className="mt-5 inline-flex bg-neutral-600 w-full rounded-lg">
+          <input type="checkbox" name="privatebox" id="privatebox" />
+          <p className="mx-2">פרטי?</p>
+        </div>
+
+        <div className="">
+          <input
+            type="file"
+            name=""
+            id="filecreate"
+            accept="image/*"
+            onChange={(e) => {
+              let file = e.target.files[0];
+              if (file) {
+                const imageUrl = URL.createObjectURL(file);
+                setImageList( imageUrl);
+              }
+            }}
+            // onChange={(e) =>console.log(e.target.files[0])}
+            className="hidden"
+          />
+          <label htmlFor="filecreate">upload image</label>
+          </div>
+          {imageList && <img src={imageList} alt="jhg"  />
+           }
+        {/* const [imageList, setImageList] = useState([]) */}
+
         {/* image 
 Recipe Name
 Discription
-Preparation Time
-Ingredients
+// Preparation Time
+
 Instructions
 Tags
 private / public
