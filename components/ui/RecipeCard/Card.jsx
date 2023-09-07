@@ -22,7 +22,7 @@ export default function Card({ recipe }) {
           }
         />
         <div className="relative"></div>
-        <Image
+        <img
           src={
             "https://cdn.pixabay.com/photo/2014/06/11/17/00/food-366875_1280.jpg"
           }

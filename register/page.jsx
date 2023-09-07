@@ -50,12 +50,12 @@ export default function RegisterPage() {
         הרשמה
         <form
           className="flex flex-col gap-2 justify-center px-10
-       bg-green-600 h-fit py-8  rounded-2xl"
+       bg-green-600 h-fit py-8 w-80 rounded-2xl"
         >
           <input
             type="text"
-            id="firstName"
-            placeholder="שם פרטי"
+            id="fulltName"
+            placeholder="שם מלא"
             className={classAll}
             onChange={(e) =>
               setDataOfForm({ ...dataOfForm, firstName: e.target.value })
@@ -63,9 +63,9 @@ export default function RegisterPage() {
           />
           <input
             type="text"
-            id="lastName"
+            id="nickame"
             required
-            placeholder="שם משפחה"
+            placeholder="כינוי "
             className={classAll}
             onChange={(e) =>
               setDataOfForm({ ...dataOfForm, lastName: e.target.value })
@@ -91,12 +91,12 @@ export default function RegisterPage() {
               setDataOfForm({ ...dataOfForm, password: e.target.value })
             }
           />
-          <span className="inline-flex items-center">
+          <span className="inline-flex place-content-between items-center">
             <input
               type="text"
               id="pass"
               required={imageExists}
-              placeholder="url-תמונה"
+              placeholder="  כתובת תמונה"
               className={classAll + " required:bg-slate-500 w-30"}
               onChange={(e) => {
                 setImageUrl(e.target.value);
@@ -105,12 +105,12 @@ export default function RegisterPage() {
               }}
             />
             {imageExists && (
-              <img src={imageUrl} alt="yos" height="50px" width="30px" />
+              <img src={imageUrl} className="rounded-lg" alt="yos" height="40px" width="35px" />
             )}
           </span>
 
 
-          <span className="inline-flex items-center">
+          {/* <span className="inline-flex items-center">
             <input
               type="file"
               id="fileUrl"
@@ -128,7 +128,7 @@ export default function RegisterPage() {
             {imageExists && (
               <img src={imageUrl} alt="yos" height="50px" width="30px" />
             )}
-          </span>
+          </span> */}
 
 
           <button
