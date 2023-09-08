@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="he" dir="rtl">
       <body className={`${assistant.className}`}>
         <Navbar />
-        <SearchSection />
+        {/* <SearchSection /> */}
         <main className="bg-slate-400">{children}</main>
         <Foot />
       </body>

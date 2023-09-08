@@ -32,7 +32,8 @@ export default function createRecipe() {
 
   return (
     <div className="w-full flex justify-center">
-      <form className="even:border even:border-black items-start  m-3 flex flex-col gap-2 w-min justify-center">
+      <form className=" items-start  m-3 flex flex-col gap-2 w-min justify-center">
+        <p className="bg-zinc-600 w-full text-center rounded-lg text-rose-50">שם המתכון-</p>
         <input
         className="w-full"
           type="text"
@@ -40,6 +41,7 @@ export default function createRecipe() {
           name="recipeName"
           id="recipeName"
         />
+        <p className="bg-zinc-600 w-full rounded-lg text-rose-50 text-center mt-6">תיאור המתכון בקצרה</p>
         <textarea
           name="discription"
           id="discription"
@@ -47,6 +49,8 @@ export default function createRecipe() {
           cols="46"
           rows="5"
         ></textarea>
+
+        <p className="text-rose-50 text-center w-full bg-zinc-600 mt-10 rounded-lg">זמן ההכנה (בדקות)</p>
         <input
           type="number"
           name="preparationTime"
@@ -54,8 +58,8 @@ export default function createRecipe() {
           placeholder="זמן הכנה (לדקה)"
         />
         {/* Equipment Needed */}
-        <div className="bg-zinc-600 rounded-lg text-center mt-6 inline-flex place-content-between items-center ">
-          <h3 className="font-bold w-80 ">רשימת מצרכים </h3>
+        <div className="bg-zinc-600 rounded-lg text-center mt-10 inline-flex place-content-between items-center ">
+          <h3 className="font-bold text-rose-50 w-80 ">רשימת מצרכים </h3>
           <span
             className="pl-2 pr-2 px-2 cursor-pointer bg-slate-300 rounded-l-lg"
             onClick={() => {
@@ -83,7 +87,7 @@ export default function createRecipe() {
                   }}
                 />
                 <input
-                  className=" mr-2 w-28"
+                  className=" mr-2 w-32"
                   type="text"
                   name="amount"
                   id={index}
@@ -106,19 +110,21 @@ export default function createRecipe() {
             );
           })}
         </div>
-        <div className="w-full bg-orange-400 rounded-lg inline-flex place-content-between items-center ">
-          <h3 className="font-bold">כמות המנות שיצאו -</h3>
+        <div className="w-full bg-zinc-600 rounded-lg mt-10 inline-flex place-content-between items-center ">
+
+        {/* Yald - Number of servings the recipe makes */}
+          <p className="font-bold text-rose-50 pr-2">כמות המנות שיצאו -</p>
           <input
-            className=" w-10 ml-10 content-start text-center text-black"
+            className=" w-15 ml-6 rounded-lg content-start text-center text-black"
             type="number"
             name="yald"
             min={1}
-            value={1}
-            placeholder="Yald - Number of servings the recipe makes"
+            // value={1}
+            placeholder="הכנס/י מספר"
           />
         </div>
 
-        <div className="w-full bg-zinc-600 rounded-lg text-center mt-6 inline-flex place-content-between items-center ">
+        <div className="w-full bg-zinc-600   text-rose-50 rounded-lg text-center mt-6 inline-flex place-content-between items-center ">
           <h3 className="font-bold w-full"> הוראות הכנה </h3>
           {/* <h3
             className="ml-2"
@@ -136,18 +142,18 @@ export default function createRecipe() {
             id="Ingredients"
             cols="46"
             rows="10"
-            className="border  border-fuchsia-600"
+            className="border  border-black"
           >
             {" "}
           </textarea>
         </div>
 
-        <div className="mt-5 bg-neutral-700 inline-flex place-content-between items-center rounded-lg w-full">
+        <div className="mt-5 bg-zinc-600 text-rose-50 font-bold inline-flex place-content-between items-center rounded-lg w-full">
           בשרי/פרווה/חלבי?
           <select
             name="select1"
             id=""
-            className="content-start mx-10 text-center"
+            className="content-start text-black mx-10 text-center"
           >
             <option value="0">בחר </option>
             <option value="1">בשרי</option>
@@ -157,12 +163,15 @@ export default function createRecipe() {
             <option value="3">חלבי</option>
           </select>
         </div>
-        <div className="mt-5 inline-flex bg-neutral-600 w-full rounded-lg">
-          <input type="checkbox" name="privatebox" id="privatebox" />
-          <p className="mx-2">פרטי?</p>
+        <div className="mt-5 inline-flex bg-zinc-600 w-full rounded-lg">
+          <input className="mr-2" type="checkbox" name="privatebox" id="privatebox" />
+          <p className="mx-2 text-rose-50 font-bold">המתכון פרטי?</p>
         </div>
 
+
+          <p className=" bg-zinc-600 w-full rounded-lg text-rose-50 text-center mt-6 font-bold">תמונת המתכון</p>
         <div className="">
+          
           <input
             type="file"
             name=""
@@ -178,7 +187,7 @@ export default function createRecipe() {
             // onChange={(e) =>console.log(e.target.files[0])}
             className="hidden"
           />
-          <label htmlFor="filecreate">upload image</label>
+          <label htmlFor="filecreate"> 📷- העלאה</label>
           </div>
           {imageList && <img src={imageList} alt="jhg"  />
            }
