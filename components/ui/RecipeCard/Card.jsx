@@ -10,6 +10,7 @@ export default function Card({ recipe }) {
     <Link href={`/${recipe.chefName}/recipe/${recipe.id}`}>
       <li className="relative gap-1 flex flex-col w-52 h-72 overflow-hidden md:w-52 lg:w-72 bg-white/25 rounded-lg">
         <h3 className="text-white text-xl">{recipe.name}</h3>
+        <h6>{recipe.description}</h6>
         <h6 className="pl-4 pr-2 text-white text-base font-medium backdrop-blur-sm bg-[rgba(0,0,0,0.7)] rounded-r-lg">
           {recipe.preparationTime}
         </h6>
