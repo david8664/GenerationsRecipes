@@ -1,31 +1,34 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 
 export default function RegisterPage() {
-  const [dataOfForm, setDataOfForm] = useState({});
-  const [okButton, setOkButton] = useState(Boolean);
+  const [dataOfForm, setDataOfForm] = useState({
+    fullName: "",
+    nickname: "",
+    email: "",
+    password: "",
+    phone: "",
+    address: "",
+    imageUrl: "",
+  });
+
+  const [okButton, setOkButton] = useState(true);
 
   useEffect(() => {
-    if (
-      dataOfForm.firstName &&
-      dataOfForm.firstName.length > 1 &&
-      dataOfForm.lastName &&
-      dataOfForm.lastName.length > 1 &&
-      dataOfForm.email &&
-      dataOfForm.email.includes("@") &&
-      dataOfForm.password &&
-      dataOfForm.password.length > 2
-    )
-      setOkButton(false);
-    else setOkButton(true);
+    const { fullName, email, password } = dataOfForm;
+    setOkButton(
+      !(
+        fullName.length > 1 &&
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+        password.length > 6 &&
+        dataOfForm.nickname.length > 1 &&
+        (dataOfForm.phone === "" || /^\d{10}$/.test(dataOfForm.phone)) &&
+        (dataOfForm.address === "" || dataOfForm.address.length > 1)
+      )
+    );
   }, [dataOfForm]);
 
-  async function urlStatus(url) {
-    try {
-      const data = await fetch(url).then((res) => console.log(res.status));
-    } catch (error) {}
-  }
-  const [imageUrl, setImageUrl] = useState("");
   const [imageExists, setImageExists] = useState(false);
 
   const checkImageExists = (url) => {
@@ -43,108 +46,85 @@ export default function RegisterPage() {
     };
   };
 
-  const classAll = "top-2 rounded-lg text-center ";
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const imageUrl = event.target.result;
+      setDataOfForm({ ...dataOfForm, imageUrl });
+      checkImageExists(imageUrl);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
-    <div className="h-max w-full flex flex-row justify-center text-center   bg-slate-400">
-      <div className=" only:font-bold">
-        הרשמה
-        <form
-          className="flex flex-col gap-2 justify-center px-10
-       bg-green-600 h-fit py-8 w-80 rounded-2xl"
-        >
-          <input
-            type="text"
-            id="fulltName"
-            placeholder="שם מלא"
-            className={classAll}
-            onChange={(e) =>
-              setDataOfForm({ ...dataOfForm, firstName: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            id="nickame"
-            required
-            placeholder="כינוי "
-            className={classAll}
-            onChange={(e) =>
-              setDataOfForm({ ...dataOfForm, lastName: e.target.value })
-            }
-          />
-          <input
-            type="email"
-            id="email"
-            required
-            placeholder="אימייל"
-            className={classAll}
-            onChange={(e) =>
-              setDataOfForm({ ...dataOfForm, email: e.target.value })
-            }
-          />
-          <input
-            type="password"
-            id="pass"
-            required
-            placeholder="סיסמא"
-            className={classAll}
-            onChange={(e) =>
-              setDataOfForm({ ...dataOfForm, password: e.target.value })
-            }
-          />
-          <span className="inline-flex place-content-between items-center">
+    <div className="h-full flex justify-center items-center bg-slate-400">
+      <form className="bg-white rounded-lg p-8 shadow-lg w-80">
+        <h2 className="text-2xl font-bold mb-4 text-center">הרשמה</h2>
+        {["שם מלא", "כינוי", "אימייל", "סיסמא", "טלפון", "כתובת"].map(
+          (placeholder, index) => (
             <input
-              type="text"
-              id="pass"
-              required={imageExists}
-              placeholder="  כתובת תמונה"
-              className={classAll + " required:bg-slate-500 w-30"}
-              onChange={(e) => {
-                setImageUrl(e.target.value);
-                checkImageExists(e.target.value);
-                setDataOfForm({ ...dataOfForm, imageUrl: e.target.value });
-              }}
+              key={index}
+              type={index === 2 ? "email" : index === 3 ? "password" : "text"}
+              required
+              placeholder={placeholder}
+              className="mb-4 w-full rounded-lg p-2 text-center border border-gray-300 focus:outline-none"
+              onChange={(e) =>
+                setDataOfForm({
+                  ...dataOfForm,
+                  [Object.keys(dataOfForm)[index]]: e.target.value,
+                })
+              }
             />
-            {imageExists && (
-              <img src={imageUrl} className="rounded-lg" alt="yos" height="40px" width="35px" />
-            )}
-          </span>
-
-
-          {/* <span className="inline-flex items-center">
+          )
+        )}
+        {!imageExists ? (
+          <label className="mb-2 text-center block text-gray-700 border border-gray-300 rounded-lg cursor-pointer flex items-center justify-center p-5">
+            בחר תמונת פרופיל <AiOutlineCloudUpload className="mr-2" />
             <input
               type="file"
-              id="fileUrl"
-              required={imageExists}
+              accept="image/*"
               className="hidden"
-            //   className={ + " required:bg-slate-500 w-30"}
-            //   onChange={(e) => {
-            //     setImageUrl(e.target.value);
-            //     checkImageExists(e.target.value);
-            //     setDataOfForm({ ...dataOfForm, imageUrl: e.target.value });
-            //   }}
-
+              onChange={handleImageUpload}
             />
-            <label htmlFor="fileUrl">yy</label>
-            {imageExists && (
-              <img src={imageUrl} alt="yos" height="50px" width="30px" />
-            )}
-          </span> */}
-
-
-          <button
-            type="submit"
-            disabled={okButton}
-            className="bg-lime-500 rounded-lg disabled:bg-gray-600"
-            onClick={(e) => {
-              e.preventDefault();
-              console.log(e);
-            }}
+          </label>
+        ) : (
+          <label
+            htmlFor="fileInput"
+            className="mb-4 text-center block cursor-pointer"
           >
-            הירשם
-          </button>
-          {/* <h2 className="text-red-700">{errorCath?.message}</h2> */}
-        </form>
-      </div>
+            <img
+              src={dataOfForm.imageUrl}
+              className="rounded-lg mx-auto w-1/2"
+              alt="uploaded"
+            />
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageUpload}
+            />
+          </label>
+        )}
+        <button
+          type="submit"
+          disabled={okButton}
+          className={`bg-green-500 text-white rounded-lg px-4 py-2 mx-auto block ${
+            okButton ? "bg-gray-300 cursor-not-allowed" : "hover:bg-green-700"
+          }`}
+          onClick={(e) => {
+            e.preventDefault();
+            console.log(dataOfForm);
+          }}
+        >
+          הירשם
+        </button>
+      </form>
     </div>
   );
 }

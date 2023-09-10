@@ -1,161 +1,58 @@
-// export const metadata: Metadata = {
-//   title: "התחברות",
-//   description: "Timeless Family Recipes, Old and New.",
-// };
 "use client";
-import { useEffect, useState } from "react";
-// import LoginButton from "../../components/ui/LoginButton";
+import React, { useState } from "react";
 
+export default function Login() {
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState("");
 
-export default function login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  // // const navigate = useNavigate();
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   // try {
-  //   //   validate({ email, password });
-  //   //   const token = await api.post("/users/login", { email, password });
-  //   //   if (token) {
-  //   //     localStorage.setItem("token", token);
-  //   //     navigate("/");
-  //   //   }
-  //   // } catch (err) {
-  //   //   setErrorMessage(
-  //   //     err?.request?.response || err?.msg || "An unknown error occurred"
-  //   //   );
-  //   //   setTimeout(() => setErrorMessage(""), 15000); // Clear the error message after 15 seconds
-  //   // }
-  // };
-
-  // const handleForgotPassword = async () => {
-  //   // try {
-  //   //   validate({ email });
-  //   //   const res = await api.get(`/users/forgotpassword?email=${email}`);
-  //   //   setErrorMessage(res);
-  //   // } catch (err) {
-  //   //   setErrorMessage(
-  //   //     err?.request?.response || err?.msg || "An unknown error occurred"
-  //   //   );
-  //   // }
-  //   setTimeout(() => setErrorMessage(""), 15000); // Clear the error message after 15 seconds
-  // };
-
-  const [dataOfForm, setDataOfForm] = useState({});
-  const [errorCath, setErrorCath] = useState({});
-
-  const data = [
-    { email: "yo@123", password: "123" },
-    { email: "yo@123", password: "123" },
-  ];
-
-  function checkInputs(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      if (!dataOfForm.password) throw "need password";
-      if (!dataOfForm.email) throw "need email";
-      if (
-        dataOfForm.password !== data[0].password ||
-        dataOfForm.email !== data[0].email
-      )
-        throw "email or password is incorrect";
-    } catch (error) {
-      // alert("no email or password"+error)
-      setErrorCath({ message: error });
-      return error.message;
-    }
-    console.log(dataOfForm);
-  }
+    const { email, password } = formData;
 
-  useEffect(() => {
-    setErrorCath({});
-  }, [dataOfForm]);
+    try {
+      if (!password || !email) throw "Both email and password are required.";
+      // Add your authentication logic here
+    } catch (err) {
+      setError(err);
+    }
+
+    console.log(formData);
+  };
 
   return (
-    // <form onSubmit={handleSubmit} >
-    // <form  >
-    // <h1>Welcome to Sounds good website</h1>
-    // <div className="">
-    //   <input
-    //     type="email"
-    //     value={email}
-    //     placeholder="Email"
-    //     onChange={(e) => setEmail(e.target.value.trim())}
-       
-    //   />
-    // </div>
-    // <div className="">
-    //   <input
-    //     type="password"
-    //     value={password}
-    //     placeholder="Password"
-    //     onChange={(e) => setPassword(e.target.value.trim())} // Changed onInput to onChange
-    //     className={styles.passwordInput}
-    //   />
-    // </div>
-    // <label className={styles.rememberMe}>
-    //   <input
-    //     type="checkbox"
-    //     checked={rememberMe}
-    //     onChange={(e) => setRememberMe(e.target.checked)}
-    //   />
-    //   Remember Me
-    // </label>
-    // <button type="submit" className={styles.login}>
-    //   Login
-    // </button>
-    // <span className={styles.forgotPassword} onClick={handleForgotPassword}>
-    //   Forgot password?
-    // </span>
-
-    // <div className={styles.signUp}>
-    //   Not a member?
-    //   <Link to={"/register"} className={styles.signUp}>
-    //     Sign up now
-    //   </Link>
-    // </div>
-    // {errorMessage && (
-    //   <span className={styles.errorMessage}>{errorMessage}</span>
-    // )} *s/}
-  // </form>
-// </div>
-
-    <form onSubmit={() => console.log(dataOfForm)}
-      className="flex flex-wrap flex-col gap-2 justify-center
-     text-center bg-green-600 w-80 h-[200px] content-center rounded-2xl"
-    >
-      <div>
-      <input
-        type="email"
-        id="email"
-        placeholder="Email"
-        className="top-2 rounded-lg"
-        onChange={(e) =>
-          setDataOfForm({ ...dataOfForm, email: e.target.value })
-        }
-      />
-      <input
-        type="password"
-        id="pass"
-        placeholder="pass"
-        className=" rounded-lg"
-        onChange={(e) =>
-          setDataOfForm({ ...dataOfForm, password: e.target.value })
-        }
-      />
-      {/* <LoginButton/> */}
-      <button
-        type="submit"
-        className="bg-lime-500 rounded-lg"
-        onClick={(e) => checkInputs(e)}
+    <div className="flex justify-center items-center h-screen">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-2 justify-center items-center text-center bg-white p-8 shadow-lg w-80 rounded-lg"
       >
-        value
-      </button>
-      <h2 className="text-red-700">{errorCath?.message}</h2>
-      </div>
-    </form>
+        <h2 className="text-2xl font-bold mb-4 text-center">התחברות</h2>
+        <input
+          type="email"
+          id="email"
+          placeholder="אימייל"
+          className="w-full rounded-lg p-2 border border-gray-300 focus:outline-none text-center"
+          onChange={handleInputChange}
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="סיסמא"
+          className="w-full rounded-lg p-2 border border-gray-300 focus:outline-none text-center"
+          onChange={handleInputChange}
+        />
+        <button
+          type="submit"
+          className="bg-green-500 text-white rounded-lg px-4 py-2 disabled:bg-gray-300"
+        >
+          התחבר
+        </button>
+        {error && <h2 className="text-red-700">{error}</h2>}
+      </form>
+    </div>
   );
 }
