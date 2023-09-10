@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import MobileMenu from "./MobileMenu";
+import SearchSection from "../ui/SearchSection";
 
 export default function Navbar() {
   return (
@@ -29,6 +30,7 @@ export default function Navbar() {
         </Link>
       </nav>
       <MobileMenu />
+      <SearchSection/>
     </div>
   );
 }
