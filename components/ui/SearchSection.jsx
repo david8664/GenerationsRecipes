@@ -16,8 +16,8 @@ export default function SearchSection() {
   };
 
   return (
-    <ul className="bg-gray-100 p-5">
-      <li className="flex justify-center gap-6 flex-col md:flex-row flex-wrap">
+    <ul className=" p-2">
+      <li className="flex justify-center gap-2 flex-col md:flex-row flex-wrap">
         <SearchBar submit={submit} />
       </li>
     </ul>

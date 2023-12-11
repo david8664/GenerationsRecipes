@@ -8,11 +8,11 @@ export default function MobileMenu() {
   return (
     <div className="md:hidden flex z-10 justify-between w-full">
       <button onClick={() => setIsClose((prev) => !prev)}>
-        {isClose ? <HiMenuAlt3 /> : <HiMenu />}
+        {isClose ? <HiMenu /> : <HiMenuAlt3 />}
       </button>
       <nav
         className={`
-        ${!isClose ? "absolute" : "hidden"}
+        ${isClose ? "hidden" : "absolute"}
         absolute left-0 right-0 top-12 shadow z-50 flex flex-col gap-4 p-4 backdrop-blur bg-white/30`}
       >
         <Link href="/profile">פרופיל</Link>

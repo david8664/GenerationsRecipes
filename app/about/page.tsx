@@ -2,14 +2,14 @@ import Image from "next/image";
 
 const AboutUs = () => {
   return (
-    <div className="relative h-full">
+    <div className="relative">
       <Image
         src={
-          "https://cdn.pixabay.com/photo/2017/09/22/19/48/tomato-2776824_1280.jpg"
+          "https://res.cloudinary.com/dufocpryn/image/upload/v1694096237/olympic_flag.jpg"
         }
         alt="about bg"
         fill
-        className="absolute top-2 left-0 object-cover aspect-square -z-10"
+        className="absolute top-2 left-0 object-cover aspect-square"
       />
       <div className="p-4 backdrop-blur-sm bg-white/60">
         <div className="max-w-3xl mx-auto mb-4">
