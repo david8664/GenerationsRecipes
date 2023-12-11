@@ -1,6 +1,5 @@
 "use client";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SearchSection() {
