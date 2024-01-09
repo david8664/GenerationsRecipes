@@ -33,3 +33,7 @@ main {
 .scrollable-container::-webkit-scrollbar-track {
   background-color: transparent;
 }
+
+.ck-editor__editable_inline:not(.ck-comment__input *) {
+  width: 30rem;
+}

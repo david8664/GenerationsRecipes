@@ -1,6 +1,6 @@
-import Link from "next/link";
 import RecipeCard from "@/components/ui/RecipeCard/Card";
 import allRecipes from "@/Data/recipesDb.json";
+
 
 const Home = () => {
   return (
