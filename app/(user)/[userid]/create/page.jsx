@@ -57,8 +57,21 @@ export default function CreateRecipe() {
         comments={recipeData.comments}
         setRecipeData={setRecipeData}
       />
-      <AllergensSection />
-      <IsPrivateSection />
+      <AllergensSection
+        allergens={recipeData.allergens}
+        setAllergens={(newAllergens) =>
+          setRecipeData((prevData) => ({
+            ...prevData,
+            allergens: newAllergens,
+          }))
+        }
+      />
+      <IsPrivateSection
+        isPrivate={recipeData.isPrivate}
+        setIsPrivate={(newIsPrivate) =>
+          setRecipeData({ ...recipeData, isPrivate: newIsPrivate })
+        }
+      />
     </form>
   );
 }
