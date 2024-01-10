@@ -1,10 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import MobileMenu from "./MobileMenu";
+import SearchSection from "../ui/SearchSection";
 
 export default function Navbar() {
   return (
-    <div className="h-12 flex justify-between relative items-center px-6 ">
+    <div className="h-12 flex justify-between relative items-center px-6">
       <nav className="hidden gap-6 md:flex">
         <Link href="/" className="z-20">
           <img src="/next.svg" alt="logo" width={30} height={30} />
@@ -29,6 +30,7 @@ export default function Navbar() {
         </Link>
       </nav>
       <MobileMenu />
+      <SearchSection/>
     </div>
   );
 }
