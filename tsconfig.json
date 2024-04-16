@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "Functions/utils/readFileAsBase64.ts", "lib/apiCalls.ts", "app/(user)/p/[userid]/page.jsx", "lib/db.js"],
   "exclude": ["node_modules"]
 }
