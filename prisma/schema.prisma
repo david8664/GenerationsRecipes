@@ -1,0 +1,142 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                      String                 @id @default(auto()) @map("_id") @db.ObjectId
+  fullName                String?
+  nickname                String?                @unique
+  email                   String?                @unique
+  emailVerified           DateTime?
+  password                String?
+  role                    UserRole               @default(USER)
+  city                    String?
+  neighborhood            String?
+  street                  String?                @unique
+  phone                   String?                @unique
+  image                   String?
+  creationDate            DateTime?              @default(now())
+  lastLogin               DateTime?
+  recipes                 Recipe[]
+  accounts                Account[]
+  isTwoFactorEnabled      Boolean                @default(false)
+  twoFactorConfirmationId String?                @db.ObjectId
+  twoFactorConfirmation   TwoFactorConfirmation?
+  isActive                Boolean?               @default(true)
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @map("user_id") @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("Account")
+}
+
+model VerificationToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model Recipe {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String       @db.ObjectId
+  illustrationImage String?
+  name              String
+  preparationTime   String
+  tags              String[]
+  description       String
+  ingredients       Ingredient[]
+  preparationMethod String
+  comments          String?
+  yield             Int?
+  allergens         Allergens[]
+  isPrivate         Boolean      @default(false)
+  uploadTime        DateTime     @default(now())
+  isActive          Boolean      @default(true)
+  User              User         @relation(fields: [userId], references: [id])
+}
+
+enum Allergens {
+  milk
+  nuts
+  peanuts
+  fish
+  eggs
+  sesame
+  soy
+  wheat
+}
+
+model Ingredient {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  amount   Float
+  unit     Unit
+  recipeId String @db.ObjectId
+  Recipe   Recipe @relation(fields: [recipeId], references: [id])
+}
+
+enum Unit {
+  GRAM
+  LITER
+}
+
+model Tag {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String  @unique
+  isActive Boolean @default(true)
+}
+
+model PasswordResetToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}

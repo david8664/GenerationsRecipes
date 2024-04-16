@@ -3,5 +3,16 @@
     "material-icon-theme.files.associations": {
 
     },
-    "material-icon-theme.folders.theme": "specific"
+    "material-icon-theme.folders.theme": "specific",
+    "cSpell.words": [
+        "Cloudinary",
+        "fullName",
+        "tailwindcss"
+    ],
+    "cSpell.ignoreWords": [
+        "Signin",
+        "shadcn",
+        "trpc",
+        "uuidv"
+    ]
 }
