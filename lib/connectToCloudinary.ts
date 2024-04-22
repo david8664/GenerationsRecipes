@@ -32,9 +32,7 @@ export default function connectToCloudinary(): void {
     };
 
     cloudinary.config(config);
-
-    console.log("Successfully connected to Cloudinary.");
-  } catch (err) {
-    console.error("Failed to connect to Cloudinary:", (err as Error).message);
+  } catch (err: any) {
+    throw err.message;
   }
 }

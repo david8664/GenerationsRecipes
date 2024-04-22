@@ -94,7 +94,6 @@ const registerUser = async (req: NextRequest) => {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
     if (error instanceof ValidationError) {
       return NextResponse.json({ message: error.message }, { status: 400 });
     }

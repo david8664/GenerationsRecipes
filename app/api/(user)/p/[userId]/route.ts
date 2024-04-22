@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    // Get user recipe
+    // Get user recipes
     return NextResponse.json(
       { message: "Fetch user recipes successful" },
       { status: 200 }

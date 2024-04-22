@@ -40,7 +40,6 @@ async function sendEmail({
   return new Promise((resolve, reject) => {
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.error("Error sending email:", err);
         reject(new Error("Failed to send email."));
       } else {
         resolve(`Email sent to - ${info.response}`);

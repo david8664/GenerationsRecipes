@@ -1,4 +1,4 @@
-import { twoFactorContent } from "@/components/email-templates/twoFactorContent";
+import { twoFactorContent } from "@/components/email-templates/two-factor-content";
 import { sendEmail } from "./sendEmail";
 
 export const sendTwoFactorEmail = async (email: string, token: string) => {

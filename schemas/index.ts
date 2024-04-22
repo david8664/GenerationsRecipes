@@ -77,6 +77,9 @@ export const RegisterSchema = z
         message: "תמונת הפרופיל חייבת להיות בפורמט base64 תקני",
       })
       .optional(),
+    ToS: z.boolean().refine((value) => value === true, {
+      message: "יש לאשר את התנאים",
+    }),
   })
   .refine(
     (data) => {

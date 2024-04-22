@@ -23,6 +23,8 @@ import api from "@/lib/apiCalls";
 import readFileAsBase64 from "@/Functions/utils/readFileAsBase64";
 import { CgProfile } from "react-icons/cg";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
+import { Checkbox } from "../ui/checkbox";
+import Link from "next/link";
 
 export const RegisterForm = () => {
   const [error, setError] = useState("");
@@ -44,6 +46,7 @@ export const RegisterForm = () => {
       neighborhood: "",
       street: "",
       profilePicture: "",
+      ToS: false,
     },
   });
 
@@ -242,6 +245,27 @@ export const RegisterForm = () => {
                       />
                     </FormControl>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ToS"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="pr-2  hover:cursor-pointer">
+                        אני מאשר/ת את{" "}
+                        <Link href={"/auth/termsOfService"}>תנאי השימוש</Link>.
+                      </FormLabel>
+                    </div>
                   </FormItem>
                 )}
               />

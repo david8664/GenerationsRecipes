@@ -1,41 +1,58 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import MobileMenu from "@/components/shared/MobileMenu";
-import SearchSection from "@/components/shared/SearchSection";
+import MobileMenu from "@/components/shared/mobile-menu";
+import { SearchBar } from "@/components/shared/search-bar";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { UserButton } from "../auth/user-button";
 import { HomeIcon } from "@radix-ui/react-icons";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import LoginButton from "../auth/login-button";
+import { HiOutlineLogin } from "react-icons/hi";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const userId = useCurrentUser()?.id;
   return (
     <header className="h-16 w-full flex justify-between items-center px-6 bg-white shadow-sm">
       <nav className="hidden gap-6 md:flex">
-        <UserButton />
+        {userId ? (
+          <UserButton />
+        ) : (
+          <Button
+            asChild
+            variant={pathname === "/auth/login" ? "default" : "outline"}
+          >
+            <Link
+              href="/auth/login"
+              aria-label="Login"
+              className="font-semibold text-gray-700 hover:text-green-500 cursor-pointer"
+            >
+              <span className="pl-2">התחברות</span>
+              <HiOutlineLogin size={"23"} />
+            </Link>
+          </Button>
+        )}
 
         <div className="flex gap-x-2">
           <Button asChild variant={pathname === "/" ? "default" : "outline"}>
-            <Link href="/" aria-label="Home" className="font-semibold text-gray-700 hover:text-blue-500 cursor-pointer">
-              <HomeIcon className="ml-1"/>
+            <Link
+              href="/"
+              aria-label="Home"
+              className="font-semibold text-gray-700 hover:text-blue-500 cursor-pointer gap-1"
+            >
+              <HomeIcon />
               דף הבית
-            </Link>
-          </Button>
-          <Button asChild variant={pathname === "/p" ? "default" : "outline"}>
-            <Link href="/p" aria-label="Profile">
-              <span className="font-semibold text-gray-700 hover:text-blue-500 cursor-pointer">
-                פרופיל
-              </span>
             </Link>
           </Button>
           <Button
             asChild
-            variant={pathname === "/search" ? "default" : "outline"}
+            variant={pathname === `/p/${userId}` ? "default" : "outline"}
           >
-            <Link href="/search" aria-label="Advanced Search">
+            <Link href={`/p/${userId}`} aria-label="Profile">
               <span className="font-semibold text-gray-700 hover:text-blue-500 cursor-pointer">
-                חיפוש מתקדם
+                פרופיל
               </span>
             </Link>
           </Button>
@@ -50,9 +67,9 @@ export default function Navbar() {
             </Link>
           </Button>
         </div>
+        <SearchBar />
       </nav>
       <MobileMenu />
-      <SearchSection />
     </header>
   );
 }
