@@ -1,4 +1,4 @@
-import { PasswordResetContent } from "@/components/email-templates/PasswordResetContent";
+import { PasswordResetContent } from "@/components/email-templates/password-reset-content";
 import { sendEmail } from "./sendEmail";
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {

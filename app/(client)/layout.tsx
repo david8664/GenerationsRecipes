@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
-import Navbar from "@/components/shared/Navbar";
-import Foot from "@/components/shared/Foot";
+import Navbar from "@/components/shared/navbar";
+import Foot from "@/components/shared/footer";
 import type { Metadata } from "next";
 import { Assistant } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -51,10 +51,10 @@ export default async function RootLayout({
   const session = await auth();
   return (
     <html lang="he" dir="rtl">
-      <Head>
+      <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </head>
 
       <body
         className={cn(

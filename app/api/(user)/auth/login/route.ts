@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { email, password, code } = validatedFields.data;
-    
+
     const existingUser = await userModel.getByEmail(email);
     if (!existingUser || !existingUser.email || !existingUser.password) {
       return NextResponse.json(
@@ -96,10 +96,9 @@ export async function POST(req: NextRequest) {
       await signIn("credentials", {
         email,
         password,
-        redirectTo: process.env.WEBSITE_URL + DEFAULT_LOGIN_REDIRECT,
+        redirectTo: DEFAULT_LOGIN_REDIRECT,
       });
     } catch (error) {
-      console.error(error);
       if (error instanceof AuthError) {
         switch (error.type) {
           case "CredentialsSignin":
@@ -121,7 +120,6 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error(error);
     return NextResponse.json(
       { message: "An error occurred during authentication" },
       { status: 500 }

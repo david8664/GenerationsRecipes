@@ -4,15 +4,14 @@ export default function Foot() {
        <div className="container mx-auto">
          <div className="flex justify-between items-center">
            <div className="text-sm">
-             &copy; {new Date().getFullYear()} GenerationsRecipes. All rights
-             reserved.
+             &copy; {new Date().getFullYear()} GenerationsRecipes. כל הזכויות שמורות.
            </div>
            <nav className="space-x-4">
-             <a href="#" className="hover:underline text-sm">
-               Terms of Service
+             <a href="/termsOfService" className="hover:underline text-sm ml-4">
+             תנאי שירות
              </a>
              <a href="#" className="hover:underline text-sm">
-               Privacy Policy
+             מדיניות פרטיות
              </a>
            </nav>
          </div>

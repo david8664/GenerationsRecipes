@@ -44,7 +44,6 @@ export const newVerification = async (req: NextRequest) => {
 
     return NextResponse.json({ message: "Email verified!" }, { status: 200 });
   } catch (err) {
-    console.log(err);
     return NextResponse.json(
       { message: "An unexpected error occurred." },
       { status: 500 }

@@ -64,7 +64,6 @@ export function DataTable<TData, TValue>({
     setSelectedTags(getSelectedTags(table));
   }, [rowSelection]);
 
-  //   console.log(table.getFilteredSelectedRowModel()?.rows.forEach(value => console.log(value.original.name)));
   return (
     <div>
       <div className="flex items-center py-4">

@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 interface LoginButtonProps {
-  children: React.ReactElement;
+  children: React.ReactNode;
   mode?: "modal" | "redirect";
   asChild?: boolean;
 }
@@ -15,7 +15,7 @@ function LoginButton({
 }: LoginButtonProps) {
   const router = useRouter();
 
-  const handelOnClick = () => {
+  const onClick = () => {
     router.push("/login");
   };
 
@@ -24,7 +24,7 @@ function LoginButton({
   }
 
   return (
-    <span onClick={handelOnClick} className="cursor-pointer">
+    <span onClick={onClick} className="cursor-pointer">
       {children}
     </span>
   );

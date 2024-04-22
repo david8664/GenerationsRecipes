@@ -7,6 +7,7 @@ export const publicRoutes = [
   "/",
   "/auth/new-verification",
   "/api/auth/new-verification",
+  "/api/search",
 ];
 
 /**
@@ -24,6 +25,7 @@ export const authRoutes = [
   "/api/auth/register",
   "/api/auth/reset",
   "/api/auth/new-password",
+  "/auth/termsOfService",
 ];
 
 /**
@@ -37,4 +39,11 @@ export const apiAuthPrefix = "/api/auth";
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = "/settings";
+export const DEFAULT_LOGIN_REDIRECT = "/";
+
+/**
+ * Routes accessible only to administrators
+ * These routes require specific permissions to access
+ * @type {string[]}
+ */
+export const adminRoutes = ["/admin/", "/api/admin/"];

@@ -6,7 +6,7 @@ export default async function checkImageExists(url: string): Promise<boolean> {
     const signal = controller.signal;
 
     // Set a timeout to abort the fetch request after  5 seconds if it hasn't completed.
-    const timeoutId = setTimeout(() => controller.abort(),  5000);
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
 
     // Send a fetch request to the provided URL with the signal to allow for aborting.
     const response = await fetch(url, { signal });
@@ -32,9 +32,6 @@ export default async function checkImageExists(url: string): Promise<boolean> {
     // If all checks pass, return true to indicate that the image exists.
     return true;
   } catch (error) {
-    // Log any errors that occur during the fetch request or the checks.
-    console.error('An error occurred while checking the image:', error);
-
     // Return false to indicate that the image does not exist or there was an error.
     return false;
   }

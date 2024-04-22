@@ -6,6 +6,8 @@ interface TranslateApiMessageProps {
   reset: (message: string) => Promise<string>;
   newRecipe: (message: string) => Promise<string>;
   getAllTags: (message: string) => Promise<string>;
+  ingredientUnit: (message: string) => Promise<string>;
+  categories: (message: string) => Promise<string>;
 }
 
 const translateApiMessage: TranslateApiMessageProps = {
@@ -79,6 +81,21 @@ const translateApiMessage: TranslateApiMessageProps = {
     // return messages[message] || "אירעה שגיאה במהלך הבקשה";
     return "אירעה שגיאה בעת עיבוד בקשתך.";
   },
+  ingredientUnit: async (message: string) => {
+    const messages: { [key: string]: string } = {
+      GRAM: "גרם",
+      LITER: "ליטר",
+    };
+    return messages[message] || "יחידה לא מוכרת";
+  },
+  categories: async (message: string) => {
+    const messages: { [key: string]: string } = {
+      "tags added successfully": "עודכן בהצלחה",
+    };
+    if(message.startsWith("The following tags already exist:")){
+      return "ישנה קטגוריה קיימת במסד!"
+    }
+    return messages[message] || "אירעה שגיאה בעת עיבוד בקשתך.";
+  },
 };
-
 export default translateApiMessage;
