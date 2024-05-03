@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-
-export async function POST(req: NextRequest) {
+export const POST = async (req: NextRequest) => {
   // edit user settings
   try {
     return new Response("data fetch successful", {
@@ -13,9 +12,9 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-}
+};
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
   try {
     // Get user settings
     return NextResponse.json(
@@ -28,4 +27,4 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   }
-}
+};

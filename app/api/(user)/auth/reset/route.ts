@@ -12,7 +12,7 @@ class ValidationError extends Error {
   }
 }
 
-const resetPassword = async (req: NextRequest) => {
+export const POST = async (req: NextRequest) => {
   try {
     const validatedFields = ResetSchema.safeParse(await req.json());
     if (!validatedFields.success) {
@@ -45,5 +45,3 @@ const resetPassword = async (req: NextRequest) => {
     );
   }
 };
-
-export { resetPassword as POST };

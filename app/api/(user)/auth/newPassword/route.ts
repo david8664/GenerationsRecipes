@@ -13,7 +13,7 @@ class ValidationError extends Error {
   }
 }
 
-const newPassword = async (req: NextRequest) => {
+export const POST = async (req: NextRequest) => {
   try {
     const { password, token } = await req.json();
     if (!token) {
@@ -62,5 +62,3 @@ const newPassword = async (req: NextRequest) => {
     );
   }
 };
-
-export { newPassword as POST };

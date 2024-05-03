@@ -3,8 +3,7 @@ import userModel from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 import { NextResponse, type NextRequest } from "next/server";
 
-
-export const newVerification = async (req: NextRequest) => {
+export const POST = async (req: NextRequest) => {
   try {
     const { token } = await req.json();
 
@@ -50,5 +49,3 @@ export const newVerification = async (req: NextRequest) => {
     );
   }
 };
-
-export { newVerification as POST };
