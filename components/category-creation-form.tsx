@@ -15,9 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import api from "@/lib/apiCalls";
-import FormError from "./form-error";
+import FormError from "@/components/form-error";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
-import FormSuccess from "./form-success";
+import FormSuccess from "@/components/form-success";
 import { useRouter } from "next/navigation";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
@@ -82,7 +82,9 @@ export const CategoryCreation = () => {
   const onSubmit = () => {
     startTransition(async () => {
       try {
-        const { message } = await api.post("admin/addTags", { tags: newCategories });
+        const { message } = await api.post("admin/addTags", {
+          tags: newCategories,
+        });
         setSuccess(await translateApiMessage.categories(message));
         const userId = useCurrentUser()?.id;
         router.push(`/p/${userId}`);

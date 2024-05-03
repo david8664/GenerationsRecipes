@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
   try {
     // Get user recipes
     return NextResponse.json(
@@ -13,4 +13,4 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   }
-}
+};

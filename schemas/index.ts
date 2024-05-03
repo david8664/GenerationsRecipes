@@ -198,3 +198,17 @@ export const RecipeSchema = z.object({
     })
     .optional(),
 });
+export const IngredientSchema = z.object({
+  name: z.string().regex(ingredientNameRegExp, {
+    message: "השם לא תקין",
+  }),
+  amount: z
+    .union([z.string(), z.number()])
+    .transform((value) => parseFloat(value as string))
+    .refine((value) => !isNaN(value) && value >= 1 && value <= 1000, {
+      message: "כמות חייבת להיות בין 1 ל-1000",
+    }),
+  unit: z.enum(["GRAM", "LITER"], {
+    required_error: "יחידת המדידה חייבת להיות גרם או ליטר",
+  }),
+});

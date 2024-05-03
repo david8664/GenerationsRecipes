@@ -15,17 +15,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { RecipeSchema } from "@/schemas";
+import { IngredientSchema, RecipeSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import FormError from "@/components/form-error";
@@ -37,6 +30,7 @@ import { Tag, columns } from "@/app/(client)/(recipe)/r/create/columns";
 import { DataTable } from "@/app/(client)/(recipe)/r/create/data-table";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { IngredientCreation } from "@/components/ingredients";
 
 export const CreateRecipeForm = () => {
   const [error, setError] = useState("");
@@ -56,7 +50,7 @@ export const CreateRecipeForm = () => {
       preparationTime: "00:00",
       tags: [],
       description: "",
-      ingredients: [{ name: "", amount: 0, unit: "GRAM" }], // TODO: add shadcn-ui table & popover
+      ingredients: [],
       preparationMethod: "",
       comments: "",
       yield: 0,
@@ -64,11 +58,6 @@ export const CreateRecipeForm = () => {
       // TODO: Gave option that let the user choose who can see that recipe
       isPrivate: false,
     },
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "ingredients",
   });
 
   const handleSelectImage = () => {
@@ -109,6 +98,18 @@ export const CreateRecipeForm = () => {
       ? [...allergens, allergen]
       : allergens.filter((a) => a !== allergen);
     form.setValue("allergens", updatedAllergens as any);
+  };
+
+  const handleIngredientDelete = (ingredientToDelete: string) => {
+    form.setValue(
+      "ingredients",
+      form
+        .getValues("ingredients")
+        .filter((ingredient) => ingredient.name !== ingredientToDelete) as [
+        { name: string; amount: number; unit: "GRAM" | "LITER" }
+      ]
+    );
+    console.log(form.getValues("ingredients"));
   };
 
   const onSubmit = (values: z.infer<typeof RecipeSchema>) => {
@@ -226,94 +227,7 @@ export const CreateRecipeForm = () => {
                     </FormItem>
                   )}
                 />
-                <span>מצרכים:</span>
-                {fields.map((field, index) => (
-                  <div key={field.id} className="flex flex-row gap-4 flex-wrap">
-                    <FormField
-                      control={form.control}
-                      name={`ingredients[${index}].name`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>שם המצרך</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled={isPending}
-                              placeholder="שם המצרך"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name={`ingredients[${index}].amount`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>כמות</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled={isPending}
-                              placeholder="3"
-                              type="number"
-                              min="1"
-                              max="1000"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name={`ingredients[${index}].unit`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>יחידת משקל</FormLabel>
-                          <Select
-                            onValueChange={field.onChange}
-                            defaultValue={"GRAM"}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="סוג יחידה" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="GRAM">גרם</SelectItem>
-                              <SelectItem value="LITER">ליטר</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
 
-                    <Button
-                      variant={"delete"}
-                      type="button"
-                      onClick={() => remove(index)}
-                    >
-                      X
-                    </Button>
-                  </div>
-                ))}
-                <Button
-                  type="button"
-                  onClick={(value) =>
-                    append({
-                      name: "",
-                      amount: 0,
-                      unit: "GRAM",
-                    })
-                  }
-                  className="w-full"
-                  disabled={isPending}
-                >
-                  הוסף מצרך
-                </Button>
                 <FormField
                   control={form.control}
                   name="preparationMethod"
@@ -334,6 +248,85 @@ export const CreateRecipeForm = () => {
                     </FormItem>
                   )}
                 />
+                <IngredientCreation
+                  ingredients={() => form.getValues("ingredients")}
+                  setIngredients={(
+                    newIngredient: z.infer<typeof IngredientSchema>
+                  ) => {
+                    // TODO: I have problem with setting the value - slow computer
+                    form.setValue("ingredients", [
+                      ...form.getValues("ingredients"),
+                      newIngredient,
+                    ]);
+
+                    console.log(
+                      "OUT - data: ",
+                      newIngredient,
+                      "ingredients: ",
+                      form.getValues("ingredients")
+                    );
+                  }}
+                />
+                {form.getValues("ingredients") && (
+                  <FormField
+                    control={form.control}
+                    name="ingredients"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>מצרכים</FormLabel>
+                        <FormControl>
+                          <table className="w-full text-left border-collapse h-fit">
+                            <thead>
+                              <tr>
+                                <th className="px-4 py-2 bg-gray-200 font-semibold text-gray-700">
+                                  שם
+                                </th>
+                                <th className="px-4 py-2 bg-gray-200 font-semibold text-gray-700">
+                                  כמות
+                                </th>
+                                <th className="px-4 py-2 bg-gray-200 font-semibold text-gray-700">
+                                  יחידת מדידה
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="border-x px-4">
+                              {form
+                                .getValues("ingredients")
+                                .map((ingredient, index) => (
+                                  <tr key={index} className="hover:bg-gray-400">
+                                    <td className="px-4 py-2 border">
+                                      {ingredient.name}
+                                    </td>
+                                    <td className="px-4 py-2 border">
+                                      {ingredient.amount}
+                                    </td>
+                                    <td className="px-4 py-2 border">
+                                      {ingredient.unit}
+                                    </td>
+                                    <td className="px-4 py-2 border hover:text-red-500">
+                                      <button
+                                        type="button"
+                                        disabled={isPending}
+                                        onClick={() =>
+                                          handleIngredientDelete(
+                                            ingredient.name
+                                          )
+                                        }
+                                      >
+                                        הסר
+                                      </button>
+                                    </td>
+                                  </tr>
+                                ))}
+                            </tbody>
+                          </table>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+
                 <FormField
                   control={form.control}
                   name="comments"

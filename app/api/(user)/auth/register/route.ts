@@ -16,7 +16,7 @@ class ValidationError extends Error {
   }
 }
 
-const registerUser = async (req: NextRequest) => {
+export const POST = async (req: NextRequest) => {
   try {
     const validatedFields = RegisterSchema.safeParse(await req.json());
 
@@ -103,5 +103,3 @@ const registerUser = async (req: NextRequest) => {
     );
   }
 };
-
-export { registerUser as POST };

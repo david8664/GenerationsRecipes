@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
   try {
     const searchParams = req.nextUrl.searchParams;
     const searchValue = searchParams.get("search")?.trim() || "";
@@ -36,4 +36,4 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   }
-}
+};
