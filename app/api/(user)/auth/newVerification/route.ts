@@ -1,13 +1,13 @@
 import { db } from "@/lib/db";
-import userModel from "@/data/user";
-import { getVerificationTokenByToken } from "@/data/verification-token";
 import { NextResponse, type NextRequest } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   try {
     const { token } = await req.json();
 
-    const existingToken = await getVerificationTokenByToken(token);
+    const existingToken = await db.verificationToken.findUnique({
+      where: { token },
+    });
 
     if (!existingToken) {
       return NextResponse.json(
@@ -25,8 +25,9 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    const existingUser = await userModel.getByEmail(existingToken.email);
-
+    const existingUser = await db.user.findUnique({
+      where: { email: existingToken.email },
+    });
     if (!existingUser) {
       return NextResponse.json(
         { message: "Email does not exist!" },

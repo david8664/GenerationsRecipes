@@ -1,8 +1,8 @@
 import { ResetSchema } from "@/schemas";
-import userModel from "@/data/user";
 import { NextResponse, type NextRequest } from "next/server";
 import { generatePasswordResetToken } from "@/lib/tokens";
 import { sendPasswordResetEmail } from "@/lib/email/sendPasswordResetEmail";
+import { db } from "@/lib/db";
 
 // Custom error class for validation errors
 class ValidationError extends Error {
@@ -23,7 +23,7 @@ export const POST = async (req: NextRequest) => {
 
     const { email } = validatedFields.data;
 
-    const existingUser = await userModel.getByEmail(email);
+    const existingUser = await db.user.findUnique({ where: { email } });
     if (!existingUser) {
       return NextResponse.json(
         { message: "Email does not exist!" },

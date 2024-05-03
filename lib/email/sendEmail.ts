@@ -15,12 +15,12 @@ if (!EMAIL_COMPANY || !APP_PASSWORD) {
   throw new Error("Email service credentials are not set.");
 }
 
-async function sendEmail({
+export const sendEmail = async ({
   email,
   subject,
   html,
   text,
-}: EmailProps): Promise<string> {
+}: EmailProps): Promise<string> => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -46,6 +46,4 @@ async function sendEmail({
       }
     });
   });
-}
-
-export { sendEmail };
+};

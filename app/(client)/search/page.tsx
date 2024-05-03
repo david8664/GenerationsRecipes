@@ -5,6 +5,6 @@ import { useSearchParams } from "next/navigation";
 
 export default function Search() {
   const searchParams = useSearchParams();
-  const search = searchParams.get("search").trim();
+  const search = searchParams.get("search")?.trim() ?? "";
   return <Recipes search={search} />;
 }

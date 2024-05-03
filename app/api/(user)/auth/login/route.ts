@@ -3,16 +3,13 @@ import { AuthError } from "next-auth";
 import { LoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import userModel from "@/data/user";
+import { db } from "@/lib/db";
 import {
   generateTwoFactorToken,
   generateVerificationToken,
 } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/email/sendVerificationEmail";
 import { sendTwoFactorEmail } from "@/lib/email/sendTwoFactorEmail";
-import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
-import { db } from "@/lib/db";
-import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     const { email, password, code } = validatedFields.data;
 
-    const existingUser = await userModel.getByEmail(email);
+    const existingUser = await db.user.findUnique({ where: { email } });
     if (!existingUser || !existingUser.email || !existingUser.password) {
       return NextResponse.json(
         { message: "Email does not exist!" },
@@ -49,9 +46,9 @@ export async function POST(req: NextRequest) {
 
     if (existingUser.isTwoFactorEnabled && existingUser.email) {
       if (code) {
-        const twoFactorToken = await getTwoFactorTokenByEmail(
-          existingUser.email
-        );
+        const twoFactorToken = await db.twoFactorToken.findFirst({
+          where: { email: existingUser.email },
+        });
         if (!twoFactorToken || twoFactorToken.token !== code) {
           return NextResponse.json(
             { message: "Invalid code!" },
@@ -68,9 +65,9 @@ export async function POST(req: NextRequest) {
 
         await db.twoFactorToken.delete({ where: { id: twoFactorToken?.id } });
 
-        const existingConfirmation = await getTwoFactorConfirmationByUserId(
-          existingUser.id
-        );
+        const existingConfirmation = await db.twoFactorConfirmation.findUnique({
+          where: { userId: existingUser.id },
+        });
         if (existingConfirmation) {
           await db.twoFactorConfirmation.delete({
             where: { id: existingConfirmation.id },
@@ -78,9 +75,7 @@ export async function POST(req: NextRequest) {
         }
 
         await db.twoFactorConfirmation.create({
-          data: {
-            userId: existingUser.id,
-          },
+          data: { userId: existingUser.id },
         });
       } else {
         const twoFactorToken = await generateTwoFactorToken(existingUser.email);
