@@ -1,17 +1,15 @@
 "use client";
 import Link from "next/link";
-import React from "react";
 import MobileMenu from "@/components/shared/mobile-menu";
 import { SearchBar } from "@/components/shared/search-bar";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
-import { UserButton } from "../auth/user-button";
+import { UserButton } from "@/components/auth/user-button";
 import { HomeIcon } from "@radix-ui/react-icons";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import LoginButton from "../auth/login-button";
 import { HiOutlineLogin } from "react-icons/hi";
 
-export default function Navbar() {
+const Navbar = () => {
   const pathname = usePathname();
   const userId = useCurrentUser()?.id;
   return (
@@ -72,4 +70,5 @@ export default function Navbar() {
       <MobileMenu />
     </header>
   );
-}
+};
+export default Navbar;

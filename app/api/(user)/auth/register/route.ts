@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import cloudinaryService from "@/Functions/utils/cloudinaryService";
 import type { NextRequest } from "next/server";
-import userModel from "@/data/user";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/email/sendVerificationEmail";
 
@@ -38,13 +37,13 @@ export const POST = async (req: NextRequest) => {
       profilePicture,
     } = validatedFields.data;
 
-    const nicknameExists = await userModel.getByNickname(nickname);
+    const nicknameExists = await db.user.findUnique({ where: { nickname } });
     if (nicknameExists)
       throw new ValidationError(
         "The nickname you've chosen is already in use. Please choose a different one."
       );
 
-    const emailExists = await userModel.getByEmail(email);
+    const emailExists = await db.user.findUnique({ where: { email } });
     if (emailExists)
       throw new ValidationError(
         "The email address you've provided is already registered. Please use a different email address."

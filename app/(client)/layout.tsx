@@ -1,12 +1,11 @@
 import "@/styles/globals.css";
-import Navbar from "@/components/shared/navbar";
-import Foot from "@/components/shared/footer";
 import type { Metadata } from "next";
 import { Assistant } from "next/font/google";
 import { cn } from "@/lib/utils";
-import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import Navbar from "@/components/shared/navbar";
+import Foot from "@/components/shared/footer";
 
 const assistant = Assistant({
   subsets: ["hebrew", "latin"],

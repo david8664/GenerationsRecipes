@@ -1,10 +1,8 @@
 // r/create
 import { NextResponse, type NextRequest } from "next/server";
 import { RecipeSchema } from "@/schemas";
-import userModel from "@/data/user";
 import cloudinaryService from "@/Functions/utils/cloudinaryService";
 import { db } from "@/lib/db";
-import { string } from "zod";
 
 export async function POST(req: NextRequest) {
   try {
@@ -29,7 +27,7 @@ export async function POST(req: NextRequest) {
       userId,
     } = validatedFields.data;
 
-    const existingUser = await userModel.getById(userId as string);
+    const existingUser = await db.user.findUnique({ where: { id: userId } });
     if (!existingUser) {
       return NextResponse.json(
         { message: "An error occurred while processing your request." },

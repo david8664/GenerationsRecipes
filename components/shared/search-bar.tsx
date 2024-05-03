@@ -1,7 +1,7 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 import {
   Form,
   FormControl,
@@ -10,7 +10,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   searchInput: z.string().trim().min(1, {
@@ -18,7 +17,7 @@ const FormSchema = z.object({
   }),
 });
 
-export function SearchBar() {
+export const SearchBar = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -59,4 +58,4 @@ export function SearchBar() {
       </form>
     </Form>
   );
-}
+};

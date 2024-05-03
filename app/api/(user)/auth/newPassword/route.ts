@@ -1,7 +1,5 @@
 import { NewPasswordSchema } from "@/schemas";
-import userModel from "@/data/user";
 import { NextResponse, type NextRequest } from "next/server";
-import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 
@@ -26,7 +24,9 @@ export const POST = async (req: NextRequest) => {
         "Please check the provided information and try again."
       );
     }
-    const existingToken = await getPasswordResetTokenByToken(token);
+    const existingToken = await db.passwordResetToken.findUnique({
+      where: { token },
+    });
     if (!existingToken) {
       return NextResponse.json({ message: "Invalid token!" }, { status: 404 });
     }
@@ -39,7 +39,9 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    const existingUser = await userModel.getByEmail(existingToken.email);
+    const existingUser = await db.user.findUnique({
+      where: { email: existingToken.email },
+    });
     if (!existingUser) {
       return NextResponse.json(
         { message: "Email does not exist!" },
