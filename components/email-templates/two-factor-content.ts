@@ -1,10 +1,10 @@
-import userModel from "@/data/user";
+import { db } from "@/lib/db";
 
 export const twoFactorContent = async (
   twoFactorToken: string,
   email: string
 ) => {
-  const user = await userModel.getByEmail(email);
+  const user = await db.user.findUnique({ where: { email } });
   return `<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 20px;">
   <p style="font-size: 16px; color: #666666; margin-bottom: 20px;">שלום ${user?.fullName},</p>
   <p style="font-size: 16px; color: #666666; margin-bottom: 20px;">קיבלנו בקשה להפעלת אימות דו-שלבי עבור חשבונך ב-GenerationsRecipes.</p>

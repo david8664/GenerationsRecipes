@@ -1,4 +1,4 @@
-import userModel from "@/data/user";
+import { db } from "@/lib/db";
 
 interface EmailContentProps {
   verificationLink: string;
@@ -9,7 +9,7 @@ const verificationEmailContent = async ({
   verificationLink,
   email,
 }: EmailContentProps) => {
-  const user = await userModel.getByEmail(email);
+  const user = await db.user.findUnique({ where: { email } });
   return `<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 20px;">
   <h2 style="color: #333333;">השלמת ההרשמה שלך: אימות כתובת הדוא"ל שלך</h2>
   <p style="font-size: 16px; color: #666666; margin-bottom: 20px;">שלום ${user?.fullName},</p>
