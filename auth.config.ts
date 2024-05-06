@@ -2,9 +2,9 @@ import { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { LoginSchema } from "@/schemas";
-import userModel from "./data/user";
 import Facebook from "next-auth/providers/facebook";
 import Google from "next-auth/providers/google";
+import { db } from "./lib/db";
 
 export default {
   providers: [
@@ -21,7 +21,7 @@ export default {
         const validatesFields = LoginSchema.safeParse(credentials);
         if (validatesFields.success) {
           const { email, password } = validatesFields.data;
-          const user = await userModel.getByEmail(email);
+          const user = await db.user.findUnique({ where: { email } });
           if (!user || !user.password) return null;
 
           const passwordsMatch = await bcrypt.compare(password, user.password);

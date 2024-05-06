@@ -1,10 +1,8 @@
+import { UserRole } from "@prisma/client";
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "@/auth.config";
 import { db } from "@/lib/db";
-import userModel from "@/data/user";
-import { UserRole } from "@prisma/client";
-import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 
 export const {
   handlers: { GET, POST },
@@ -29,14 +27,16 @@ export const {
       // Allow oAuth without email verification
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await userModel.getById(user.id as string);
+      const existingUser = await db.user.findUnique({ where: { id: user.id } });
 
       // Prevent sign in without email verification
       if (!existingUser?.emailVerified) return false;
 
       if (existingUser.isTwoFactorEnabled) {
-        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
-          existingUser.id
+        const twoFactorConfirmation = await db.twoFactorConfirmation.findUnique(
+          {
+            where: { userId: existingUser.id },
+          }
         );
         if (!twoFactorConfirmation) return false;
 
@@ -62,7 +62,9 @@ export const {
     async jwt({ token }) {
       if (!token.sub) return token;
 
-      const existingUser = await userModel.getById(token.sub);
+      const existingUser = await db.user.findUnique({
+        where: { id: token.sub },
+      });
       if (!existingUser) return token;
 
       token.role = existingUser.role;
