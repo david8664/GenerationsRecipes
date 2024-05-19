@@ -15,7 +15,7 @@ if (!EMAIL_COMPANY || !APP_PASSWORD) {
   throw new Error("Email service credentials are not set.");
 }
 
-export const sendEmail = async ({
+const sendEmail = async ({
   email,
   subject,
   html,
@@ -47,3 +47,4 @@ export const sendEmail = async ({
     });
   });
 };
+export default sendEmail;

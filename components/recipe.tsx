@@ -28,7 +28,7 @@ interface RecipeProps {
   uploadTime: string;
   ingredients: Ingredient[];
 }
-export const Recipe = () => {
+const Recipe = () => {
   const pathName = usePathname();
   const userId = pathName.split("/")[2];
   const recipeId = pathName.split("/").pop();
@@ -114,3 +114,4 @@ export const Recipe = () => {
     </div>
   );
 };
+export default Recipe;

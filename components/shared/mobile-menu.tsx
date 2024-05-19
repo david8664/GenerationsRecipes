@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { HiMenu, HiMenuAlt3, HiOutlineLogin } from "react-icons/hi";
 import { HomeIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
-import { UserButton } from "@/components/auth/user-button";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { SearchBar } from "@/components/shared/search-bar";
+import UserButton from "@/components/auth/user-button";
+import useCurrentUser from "@/hooks/use-current-user";
+import SearchBar from "@/components/shared/search-bar";
 
-const MobileMenu = () => {
+export const MobileMenu = () => {
   const [isClose, setIsClose] = useState<boolean>(true);
   const pathname = usePathname();
   const userId = useCurrentUser()?.id;

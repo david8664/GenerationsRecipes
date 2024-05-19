@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
     // Create a new recipe
     await db.recipe.create({
       data: {
-        allergens,
+        allergens: allergens || [],
         description,
         ingredients: {
           create: ingredientCreates,

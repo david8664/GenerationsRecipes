@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useTransition } from "react";
-import { CardWrapper } from "@/components/auth/card-wrapper";
+import CardWrapper from "@/components/auth/card-wrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -26,7 +26,7 @@ import translateApiMessage from "@/Functions/utils/translateApiMessage";
 import { Checkbox } from "../ui/checkbox";
 import Link from "next/link";
 
-export const RegisterForm = () => {
+const RegisterForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -309,3 +309,4 @@ export const RegisterForm = () => {
     </CardWrapper>
   );
 };
+export default RegisterForm;

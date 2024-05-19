@@ -1,7 +1,7 @@
-import { UserRole } from "@prisma/client";
 import NextAuth from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "@/auth.config";
+import { User } from "@prisma/client";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 
 export const {
@@ -16,6 +16,8 @@ export const {
   },
   events: {
     async linkAccount({ user }) {
+      console.log(`linkAccount: ${user}`);
+      
       db.user.update({
         where: { id: user.id },
         data: { emailVerified: new Date() },
@@ -52,7 +54,7 @@ export const {
         session.user.id = token.sub;
       }
       if (token.role && session.user) {
-        session.user.role = token.role as UserRole;
+        session.user.role = token.role as User["role"];
       }
       if (session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;

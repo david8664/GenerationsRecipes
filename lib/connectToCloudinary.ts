@@ -10,7 +10,7 @@ interface CloudinaryConfig {
 }
 
 // Function to connect to Cloudinary
-export default function connectToCloudinary(): void {
+const connectToCloudinary = (): void => {
   try {
     // Validate environment variables
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
@@ -35,4 +35,5 @@ export default function connectToCloudinary(): void {
   } catch (err: any) {
     throw err.message;
   }
-}
+};
+export default connectToCloudinary;

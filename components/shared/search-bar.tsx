@@ -17,7 +17,7 @@ const FormSchema = z.object({
   }),
 });
 
-export const SearchBar = () => {
+const SearchBar = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -59,3 +59,4 @@ export const SearchBar = () => {
     </Form>
   );
 };
+export default SearchBar;

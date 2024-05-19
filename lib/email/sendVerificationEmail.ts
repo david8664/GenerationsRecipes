@@ -1,7 +1,7 @@
-import { sendEmail } from "@/lib/email/sendEmail";
+import sendEmail from "@/lib/email/sendEmail";
 import verificationEmailContent from "@/components/email-templates/verification-email-content";
 
-export const sendVerificationEmail = async (email: string, token: string) => {
+const sendVerificationEmail = async (email: string, token: string) => {
   const confirmLink = `${process.env.WEBSITE_URL}/auth/new-verification?token=${token}`;
 
   const html = await verificationEmailContent({
@@ -14,3 +14,4 @@ export const sendVerificationEmail = async (email: string, token: string) => {
     html: html,
   });
 };
+export default sendVerificationEmail;

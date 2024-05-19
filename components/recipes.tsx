@@ -1,8 +1,8 @@
 "use client";
 
-import { RecipeCard } from "@/components/recipeCard";
-import api from "@/lib/apiCalls";
 import { useEffect, useState } from "react";
+import RecipeCard from "@/components/recipeCard";
+import api from "@/lib/apiCalls";
 
 interface RecipesProps {
   search?: string;
@@ -10,11 +10,7 @@ interface RecipesProps {
   limit?: number;
 }
 
-export const Recipes = ({
-  search = "",
-  page = 1,
-  limit = 10,
-}: RecipesProps) => {
+const Recipes = ({ search = "", page = 1, limit = 10 }: RecipesProps) => {
   const [recipes, setRecipes] = useState<RecipeProps[]>([]);
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -37,10 +33,11 @@ export const Recipes = ({
   }, []);
 
   return (
-    <div className="w-1/2 flex flex-row flex-wrap bg-slate-200">
+    <div className="w-2/3 p-2 border rounded-md flex flex-row flex-wrap bg-slate-200">
       {recipes.map((recipe) => (
         <RecipeCard {...recipe} key={recipe.id} />
       ))}
     </div>
   );
 };
+export default Recipes;

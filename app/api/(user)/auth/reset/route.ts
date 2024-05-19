@@ -1,7 +1,7 @@
 import { ResetSchema } from "@/schemas";
 import { NextResponse, type NextRequest } from "next/server";
 import { generatePasswordResetToken } from "@/lib/tokens";
-import { sendPasswordResetEmail } from "@/lib/email/sendPasswordResetEmail";
+import sendPasswordResetEmail from "@/lib/email/sendPasswordResetEmail";
 import { db } from "@/lib/db";
 
 // Custom error class for validation errors

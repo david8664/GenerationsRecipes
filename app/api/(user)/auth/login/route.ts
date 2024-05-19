@@ -8,10 +8,10 @@ import {
   generateTwoFactorToken,
   generateVerificationToken,
 } from "@/lib/tokens";
-import { sendVerificationEmail } from "@/lib/email/sendVerificationEmail";
-import { sendTwoFactorEmail } from "@/lib/email/sendTwoFactorEmail";
+import sendVerificationEmail from "@/lib/email/sendVerificationEmail";
+import sendTwoFactorEmail from "@/lib/email/sendTwoFactorEmail";
 
-export async function POST(req: NextRequest) {
+export const POST = async (req: NextRequest) => {
   try {
     const validatedFields = LoginSchema.safeParse(await req.json());
 
@@ -120,4 +120,4 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-}
+};

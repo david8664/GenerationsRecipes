@@ -6,9 +6,9 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Header } from "@/components/auth/header";
-import { Social } from "@/components/auth/social";
-import { BackButton } from "@/components/auth/buck-button";
+import Header from "@/components/auth/header";
+import Social from "@/components/auth/social";
+import BackButton from "@/components/auth/buck-button";
 
 interface CardWrapperProps {
   children: React.ReactNode;
@@ -18,7 +18,7 @@ interface CardWrapperProps {
   showSocial?: boolean;
 }
 
-export const CardWrapper = ({
+const CardWrapper = ({
   children,
   headerLabel,
   backButtonLabel,
@@ -42,3 +42,4 @@ export const CardWrapper = ({
     </Card>
   );
 };
+export default CardWrapper;

@@ -5,7 +5,7 @@ import { getVerificationTokenByEmail } from "@/data/verification-token";
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 
-export const generateVerificationToken = async (email: string) => {
+const generateVerificationToken = async (email: string) => {
   const token = uuidv4();
   const expires = new Date(new Date().getTime() + 3600 * 1000);
 
@@ -21,7 +21,7 @@ export const generateVerificationToken = async (email: string) => {
   return verificationToken;
 };
 
-export const generatePasswordResetToken = async (email: string) => {
+const generatePasswordResetToken = async (email: string) => {
   const token = uuidv4();
   const expires = new Date(new Date().getTime() + 3600 * 1000);
 
@@ -37,7 +37,7 @@ export const generatePasswordResetToken = async (email: string) => {
   return passwordResetToken;
 };
 
-export const generateTwoFactorToken = async (email: string) => {
+const generateTwoFactorToken = async (email: string) => {
   const token = crypto.randomInt(100_000, 1_000_000).toString();
   const expires = new Date(new Date().getTime() + 10 * 60 * 1000);
 
@@ -50,4 +50,10 @@ export const generateTwoFactorToken = async (email: string) => {
     data: { email, token, expires },
   });
   return twoFactorToken;
+};
+
+export {
+  generateVerificationToken,
+  generatePasswordResetToken,
+  generateTwoFactorToken,
 };

@@ -2,7 +2,7 @@
 
 import React, { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
-import { CardWrapper } from "@/components/auth/card-wrapper";
+import CardWrapper from "@/components/auth/card-wrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -23,7 +23,7 @@ import api from "@/lib/apiCalls";
 import Link from "next/link";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const searchParams = useSearchParams();
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLink"
@@ -151,3 +151,4 @@ export const LoginForm = () => {
     </CardWrapper>
   );
 };
+export default LoginForm;

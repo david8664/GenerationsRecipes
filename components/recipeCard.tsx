@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { PiClockCountdownDuotone } from "react-icons/pi";
 import { LuChefHat } from "react-icons/lu";
 
-export const RecipeCard = ({
+const RecipeCard = ({
   id,
   illustrationImage,
   name,
@@ -44,3 +44,4 @@ export const RecipeCard = ({
     </div>
   );
 };
+export default RecipeCard;

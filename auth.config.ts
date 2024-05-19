@@ -1,10 +1,10 @@
-import { NextAuthConfig } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { LoginSchema } from "@/schemas";
 import Facebook from "next-auth/providers/facebook";
 import Google from "next-auth/providers/google";
-import { db } from "./lib/db";
+import { db } from "@/lib/db";
 
 export default {
   providers: [
