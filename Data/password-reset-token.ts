@@ -1,9 +1,10 @@
-import { db } from "@/lib/db";
+import api from "@/lib/apiCalls";
 
 const getPasswordResetTokenByToken = async (token: string) => {
   try {
-    const passwordResetToken = await db.passwordResetToken.findUnique({
-      where: { token },
+    const passwordResetToken = await api.get("/auth/passwordResetToken", {
+      searchType: "token",
+      value: token,
     });
     return passwordResetToken;
   } catch (error) {
@@ -13,8 +14,9 @@ const getPasswordResetTokenByToken = async (token: string) => {
 
 const getPasswordResetTokenByEmail = async (email: string) => {
   try {
-    const passwordResetToken = await db.passwordResetToken.findFirst({
-      where: { email },
+    const passwordResetToken = api.get("/auth/passwordResetToken", {
+      searchType: "email",
+      value: email,
     });
     return passwordResetToken;
   } catch (error) {

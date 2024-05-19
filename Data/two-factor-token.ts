@@ -1,9 +1,10 @@
-import { db } from "@/lib/db";
+import api from "@/lib/apiCalls";
 
 const getTwoFactorTokenByToken = async (token: string) => {
   try {
-    const twoFactorToken = await db.twoFactorToken.findUnique({
-      where: { token },
+    const twoFactorToken = await api.get("/auth/twoFactorToken", {
+      searchType: "token",
+      value: token,
     });
     return twoFactorToken;
   } catch (error) {
@@ -13,8 +14,9 @@ const getTwoFactorTokenByToken = async (token: string) => {
 
 const getTwoFactorTokenByEmail = async (email: string) => {
   try {
-    const twoFactorToken = await db.twoFactorToken.findFirst({
-      where: { email },
+    const twoFactorToken = await api.get("/auth/twoFactorToken", {
+      searchType: "email",
+      value: email,
     });
     return twoFactorToken;
   } catch (error) {
