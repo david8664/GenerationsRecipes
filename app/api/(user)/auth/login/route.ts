@@ -13,6 +13,8 @@ import sendTwoFactorEmail from "@/lib/email/sendTwoFactorEmail";
 
 export const POST = async (req: NextRequest) => {
   try {
+    console.log("Retrieving user security details from client-side input.");
+    
     const validatedFields = LoginSchema.safeParse(await req.json());
 
     if (!validatedFields.success) {
