@@ -4,7 +4,7 @@ import { Assistant } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
-import Navbar from "@/components/shared/navbar";
+// import Navbar from "@/components/shared/navbar";
 import Foot from "@/components/shared/footer";
 
 
@@ -64,7 +64,7 @@ export default async function RootLayout({
       >
         <SessionProvider session={session}>
           <div className="flex-grow">
-            <Navbar />
+            {/* <Navbar /> */}
             <main className="flex flex-col justify-center items-center py-8">
               {children}
             </main>
