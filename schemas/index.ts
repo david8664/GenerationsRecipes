@@ -29,7 +29,7 @@ const validateBase64ProfilePicture = (value: string) => {
   }
 };
 
-export const LoginSchema = z.object({
+const LoginSchema = z.object({
   email: z.string().email({
     message: "אימייל נדרש",
   }),
@@ -39,7 +39,7 @@ export const LoginSchema = z.object({
   code: z.optional(z.string()),
 });
 
-export const RegisterSchema = z
+const RegisterSchema = z
   .object({
     fullName: z.string().regex(fullNameRegExp, {
       message: "שם נדרש",
@@ -96,13 +96,13 @@ export const RegisterSchema = z
     }
   );
 
-export const ResetSchema = z.object({
+const ResetSchema = z.object({
   email: z.string().email({
     message: "אימייל נדרש",
   }),
 });
 
-export const NewPasswordSchema = z
+const NewPasswordSchema = z
   .object({
     password: z.string().regex(passwordRegExp, {
       message:
@@ -128,7 +128,7 @@ export const NewPasswordSchema = z
     }
   );
 
-export const RecipeSchema = z.object({
+const RecipeSchema = z.object({
   userId: z.string().optional(),
   illustrationImage: z
     .string()
@@ -198,7 +198,7 @@ export const RecipeSchema = z.object({
     })
     .optional(),
 });
-export const IngredientSchema = z.object({
+const IngredientSchema = z.object({
   name: z.string().regex(ingredientNameRegExp, {
     message: "השם לא תקין",
   }),
@@ -212,3 +212,12 @@ export const IngredientSchema = z.object({
     required_error: "יחידת המדידה חייבת להיות גרם או ליטר",
   }),
 });
+
+export {
+  LoginSchema,
+  RegisterSchema,
+  ResetSchema,
+  NewPasswordSchema,
+  RecipeSchema,
+  IngredientSchema,
+};

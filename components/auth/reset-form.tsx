@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
-import { CardWrapper } from "@/components/auth/card-wrapper";
+import CardWrapper from "@/components/auth/card-wrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -21,7 +21,7 @@ import FormSuccess from "@/components/form-success";
 import api from "@/lib/apiCalls";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
 
-export const ResetForm = () => {
+const ResetForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -86,3 +86,4 @@ export const ResetForm = () => {
     </CardWrapper>
   );
 };
+export default ResetForm;

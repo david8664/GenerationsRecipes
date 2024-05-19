@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import cloudinaryService from "@/Functions/utils/cloudinaryService";
 import type { NextRequest } from "next/server";
 import { generateVerificationToken } from "@/lib/tokens";
-import { sendVerificationEmail } from "@/lib/email/sendVerificationEmail";
+import sendVerificationEmail from "@/lib/email/sendVerificationEmail";
 
 // Custom error class for validation errors
 class ValidationError extends Error {

@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import MobileMenu from "@/components/shared/mobile-menu";
-import { SearchBar } from "@/components/shared/search-bar";
-import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
-import { UserButton } from "@/components/auth/user-button";
 import { HomeIcon } from "@radix-ui/react-icons";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { HiOutlineLogin } from "react-icons/hi";
+import { Button } from "@/components/ui/button";
+import useCurrentUser from "@/hooks/use-current-user";
+import MobileMenu from "@/components/shared/mobile-menu";
+import SearchBar from "@/components/shared/search-bar";
+import UserButton from "@/components/auth/user-button";
 
 const Navbar = () => {
   const pathname = usePathname();

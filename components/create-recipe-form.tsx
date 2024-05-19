@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useRef, useState, useTransition, useEffect } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
-import { MdImageSearch } from "react-icons/md";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { MdImageSearch } from "react-icons/md";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -18,28 +18,28 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { IngredientSchema, RecipeSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import FormError from "@/components/form-error";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import useCurrentUser from "@/hooks/use-current-user";
+import { IngredientSchema, RecipeSchema } from "@/schemas";
+import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
 import readFileAsBase64 from "@/Functions/utils/readFileAsBase64";
 import api from "@/lib/apiCalls";
-import { Tag, columns } from "@/app/(client)/(recipe)/r/create/columns";
-import { DataTable } from "@/app/(client)/(recipe)/r/create/data-table";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { IngredientCreation } from "@/components/ingredients";
+import { Tag, columns } from "@/app/(recipe)/r/create/columns";
+import { DataTable } from "@/app/(recipe)/r/create/data-table";
+import IngredientCreation from "@/components/ingredients";
 
-export const CreateRecipeForm = () => {
+const CreateRecipeForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [allTags, setAllTags] = useState<z.infer<typeof Tag>[]>();
-  const SymbolsOfAllergiesRoot = `https://res.cloudinary.com/dcfwqisy1/image/upload/${process.env.CLOUDINARY_UPLOAD_FOLDER}/SymbolsOfAllergies`;
+  const SymbolsOfAllergiesRoot = `https://res.cloudinary.com/dcfwqisy1/image/upload/${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_FOLDER}/SymbolsOfAllergies`;
 
   const form = useForm<z.infer<typeof RecipeSchema>>({
     resolver: zodResolver(RecipeSchema),
@@ -80,8 +80,10 @@ export const CreateRecipeForm = () => {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const { message: tags } = await api.get("/r/tags");
-        setAllTags(tags as any);
+        const { message: tags } = await api.get<z.infer<typeof Tag>[]>(
+          "/r/tags"
+        );
+        setAllTags(tags);
       } catch (error: any) {
         const translateMessage = await translateApiMessage.getAllTags(
           error.message
@@ -109,7 +111,6 @@ export const CreateRecipeForm = () => {
         { name: string; amount: number; unit: "GRAM" | "LITER" }
       ]
     );
-    console.log(form.getValues("ingredients"));
   };
 
   const onSubmit = (values: z.infer<typeof RecipeSchema>) => {
@@ -130,7 +131,7 @@ export const CreateRecipeForm = () => {
   };
 
   return (
-    <Card>
+    <Card className="flex flex-col items-center">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">יצירת מתכון</p>
       </CardHeader>
@@ -227,44 +228,15 @@ export const CreateRecipeForm = () => {
                     </FormItem>
                   )}
                 />
-
-                <FormField
-                  control={form.control}
-                  name="preparationMethod"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>אופן הכנה</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder={`1.   מחממים   תנור   ל-180   מעלות   צלזיוס   ומשמנים   תבנית   בשמן.
-                          2.   מערבבים   את   כל   המצרכים   בקערה   גדולה   עד   שהם   מתמזגים   לתערובת   אחידה.
-                          3.   מעבירים   את   התערובת   לתבנית   ומפזרים...`}
-                          className="resize-none"
-                          {...field}
-                          disabled={isPending}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
                 <IngredientCreation
                   ingredients={() => form.getValues("ingredients")}
                   setIngredients={(
                     newIngredient: z.infer<typeof IngredientSchema>
                   ) => {
-                    // TODO: I have problem with setting the value - slow computer
                     form.setValue("ingredients", [
                       ...form.getValues("ingredients"),
                       newIngredient,
                     ]);
-
-                    console.log(
-                      "OUT - data: ",
-                      newIngredient,
-                      "ingredients: ",
-                      form.getValues("ingredients")
-                    );
                   }}
                 />
                 {form.getValues("ingredients") && (
@@ -273,7 +245,7 @@ export const CreateRecipeForm = () => {
                     name="ingredients"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>מצרכים</FormLabel>
+                        <FormLabel>מצרכים שנבחרו</FormLabel>
                         <FormControl>
                           <table className="w-full text-left border-collapse h-fit">
                             <thead>
@@ -326,17 +298,17 @@ export const CreateRecipeForm = () => {
                     )}
                   />
                 )}
-
                 <FormField
                   control={form.control}
-                  name="comments"
+                  name="preparationMethod"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>הערות</FormLabel>
+                      <FormLabel>אופן הכנה</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder={`1. ניתן להוסיף קמח קוקוס לתערובת כדי לתת טעם נוסף וטקסטורה מעניינת.
-                          2. אם נדרש, ניתן להוסיף כפית וחצי חרדל חריף לתערובת כדי להוסיף פיקנטיות...`}
+                          placeholder={`1.   מחממים   תנור   ל-180   מעלות   צלזיוס   ומשמנים   תבנית   בשמן.
+                          2.   מערבבים   את   כל   המצרכים   בקערה   גדולה   עד   שהם   מתמזגים   לתערובת   אחידה.
+                          3.   מעבירים   את   התערובת   לתבנית   ומפזרים...`}
                           className="resize-none"
                           {...field}
                           disabled={isPending}
@@ -600,7 +572,7 @@ export const CreateRecipeForm = () => {
                 <FormField
                   control={form.control}
                   name="tags"
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem>
                       <FormLabel>קטגוריות</FormLabel>
                       <FormControl>
@@ -613,6 +585,25 @@ export const CreateRecipeForm = () => {
                               selectedTags as [string, ...string[]]
                             )
                           }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="comments"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>הערות</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder={`1. ניתן להוסיף קמח קוקוס לתערובת כדי לתת טעם נוסף וטקסטורה מעניינת.
+                          2. אם נדרש, ניתן להוסיף כפית וחצי חרדל חריף לתערובת כדי להוסיף פיקנטיות...`}
+                          className="resize-none"
+                          {...field}
+                          disabled={isPending}
                         />
                       </FormControl>
                       <FormMessage />
@@ -632,3 +623,4 @@ export const CreateRecipeForm = () => {
     </Card>
   );
 };
+export default CreateRecipeForm;

@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { signIn } from "next-auth/react";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
-export const Social = () => {
+const Social = () => {
   const handelOnClick = (provider: "google" | "facebook") => {
     signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
   };
@@ -28,3 +28,4 @@ export const Social = () => {
     </div>
   );
 };
+export default Social;

@@ -1,5 +1,5 @@
 // This function checks if an image exists at a given URL.
-export default async function checkImageExists(url: string): Promise<boolean> {
+const checkImageExists = async (url: string): Promise<boolean> => {
   try {
     // Create an AbortController to allow aborting the fetch request if needed.
     const controller = new AbortController();
@@ -35,4 +35,5 @@ export default async function checkImageExists(url: string): Promise<boolean> {
     // Return false to indicate that the image does not exist or there was an error.
     return false;
   }
-}
+};
+export default checkImageExists;

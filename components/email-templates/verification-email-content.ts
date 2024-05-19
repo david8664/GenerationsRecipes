@@ -21,5 +21,4 @@ const verificationEmailContent = async ({
   <p style="font-size: 16px; color: #666666; margin-bottom: 0;">בברכה, צוות GenerationsRecipes</p>
 </div>`;
 };
-
 export default verificationEmailContent;

@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useEffect, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -14,12 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import useCurrentUser from "@/hooks/use-current-user";
 import api from "@/lib/apiCalls";
-import FormError from "@/components/form-error";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
+import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
-import { useRouter } from "next/navigation";
-import { useCurrentUser } from "@/hooks/use-current-user";
 
 const categoryRegex = /^([a-zA-Z]+(?: [a-zA-Z]+)*|[א-ת]+(?: [א-ת]+)*)$/;
 const CategoryCreationSchema = z.object({
@@ -28,7 +28,7 @@ const CategoryCreationSchema = z.object({
   }),
 });
 
-export const CategoryCreation = () => {
+const CategoryCreation = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -179,3 +179,4 @@ export const CategoryCreation = () => {
     </div>
   );
 };
+export default CategoryCreation;

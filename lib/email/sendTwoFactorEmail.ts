@@ -1,7 +1,7 @@
-import { twoFactorContent } from "@/components/email-templates/two-factor-content";
-import { sendEmail } from "./sendEmail";
+import twoFactorContent from "@/components/email-templates/two-factor-content";
+import sendEmail from "@/lib/email/sendEmail";
 
-export const sendTwoFactorEmail = async (email: string, token: string) => {
+const sendTwoFactorEmail = async (email: string, token: string) => {
   const html = await twoFactorContent(token, email);
   await sendEmail({
     email: [email],
@@ -9,3 +9,4 @@ export const sendTwoFactorEmail = async (email: string, token: string) => {
     html: html,
   });
 };
+export default sendTwoFactorEmail;

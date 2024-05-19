@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
-import { CardWrapper } from "@/components/auth/card-wrapper";
+import CardWrapper from "@/components/auth/card-wrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -22,7 +22,7 @@ import api from "@/lib/apiCalls";
 import { useSearchParams } from "next/navigation";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
 
-export const NewPasswordForm = () => {
+const NewPasswordForm = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const [error, setError] = useState<string | undefined>("");
@@ -113,3 +113,4 @@ export const NewPasswordForm = () => {
     </CardWrapper>
   );
 };
+export default NewPasswordForm;

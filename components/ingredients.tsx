@@ -33,7 +33,7 @@ interface IngredientCreationProps {
   // (newIngredient: IngredientType) => void;
 }
 
-export const IngredientCreation = ({
+const IngredientCreation = ({
   ingredients,
   setIngredients,
 }: IngredientCreationProps) => {
@@ -65,13 +65,14 @@ export const IngredientCreation = ({
   // }, []);
 
   const onSubmit = (data: z.infer<typeof IngredientSchema>) => {
-    if (ingredients().some((ingredient) => ingredient.name.includes(data.name))) {
+    if (
+      ingredients().some((ingredient) => ingredient.name.includes(data.name))
+    ) {
       setError("מצרך זה כבר קיים!");
     } else {
       setIngredients(data);
     }
     form.reset();
-    console.log("IN - data: ", data, "ingredients: ", ingredients());
   };
 
   return (
@@ -144,3 +145,4 @@ export const IngredientCreation = ({
     </Form>
   );
 };
+export default IngredientCreation;

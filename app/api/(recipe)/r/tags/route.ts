@@ -7,11 +7,10 @@ export const GET = async (req: NextRequest) => {
     // Retrieve all tags from the database
     const tags = await db.tag.findMany({
       where: { isActive: true },
-      select: { name: true },
+      select: { name: true, id: true},
     });
-    const tagNames: string[] = tags.map((tag) => tag.name);
 
-    return NextResponse.json({ message: tagNames }, { status: 200 });
+    return NextResponse.json({ message: tags }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Failed to add tags to the database" },

@@ -2,14 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
-import { CardWrapper } from "@/components/auth/card-wrapper";
+import CardWrapper from "@/components/auth/card-wrapper";
 import { useSearchParams } from "next/navigation";
 import api from "@/lib/apiCalls";
 import FormError from "../form-error";
 import FormSuccess from "../form-success";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
 
-export const NewVerificationForm = () => {
+const NewVerificationForm = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const searchParams = useSearchParams();
@@ -49,3 +49,4 @@ export const NewVerificationForm = () => {
     </CardWrapper>
   );
 };
+export default NewVerificationForm;

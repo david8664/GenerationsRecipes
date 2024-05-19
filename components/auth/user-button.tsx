@@ -1,7 +1,6 @@
 "use client";
-
 import { FaUser } from "react-icons/fa";
-import { ExitIcon } from "@radix-ui/react-icons";
+import { ExitIcon, GearIcon, PlusIcon } from "@radix-ui/react-icons";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,10 +8,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { LogoutButton } from "@/components/auth/logout-button";
+import useCurrentUser from "@/hooks/use-current-user";
+import LogoutButton from "@/components/auth/logout-button";
+import SettingsButton from "@/components/settings-button";
+import CreateRecipeButton from "../create-recipe-button";
 
-export const UserButton = () => {
+const UserButton = () => {
   const user = useCurrentUser();
 
   return (
@@ -26,8 +27,20 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
+        <CreateRecipeButton>
+          <DropdownMenuItem className="hover:cursor-pointer">
+            <PlusIcon className="h-4 w-4 mr-auto" />
+            הוספת מתכון
+          </DropdownMenuItem>
+        </CreateRecipeButton>
+        <SettingsButton>
+          <DropdownMenuItem className="hover:cursor-pointer">
+            <GearIcon className="h-4 w-4 mr-auto" />
+            הגדרות
+          </DropdownMenuItem>
+        </SettingsButton>
         <LogoutButton>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="hover:cursor-pointer">
             <ExitIcon className="h-4 w-4 mr-auto" />
             התנתקות
           </DropdownMenuItem>
@@ -36,3 +49,4 @@ export const UserButton = () => {
     </DropdownMenu>
   );
 };
+export default UserButton;

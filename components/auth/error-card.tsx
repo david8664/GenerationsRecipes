@@ -1,7 +1,7 @@
-import { CardWrapper } from "@/components/auth/card-wrapper";
+import CardWrapper from "@/components/auth/card-wrapper";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
-export default function ErrorCard() {
+const ErrorCard = () => {
   return (
     <CardWrapper
       headerLabel="אופס, משהו השתבש"
@@ -13,4 +13,5 @@ export default function ErrorCard() {
       </div>
     </CardWrapper>
   );
-}
+};
+export default ErrorCard;

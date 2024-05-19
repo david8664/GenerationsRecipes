@@ -1,13 +1,13 @@
-import { ExtendedUser } from "@/next-auth";
+import { ExtendedUser } from "@/nextAuth";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "./ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 interface UserInfoProps {
   user?: ExtendedUser;
   label: string;
 }
 
-export const UserInfo = ({ user, label }: UserInfoProps) => {
+const UserInfo = ({ user, label }: UserInfoProps) => {
   return (
     <Card className="w-1/2">
       <CardHeader>
@@ -20,12 +20,14 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
             {user?.id}
           </p>
         </div>
-        <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-          <p className="text-sm font-medium">שם</p>
-          <p className="truncate text-sm max-w-44 font-mono p-1 bg-slate-100 rounded-md">
-            {user?.name}
-          </p>
-        </div>
+        {user?.name && (
+          <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+            <p className="text-sm font-medium">שם</p>
+            <p className="truncate text-sm max-w-44 font-mono p-1 bg-slate-100 rounded-md">
+              {user?.name}
+            </p>
+          </div>
+        )}
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
           <p className="text-sm font-medium">אימייל</p>
           <p className="truncate text-sm max-w-44 font-mono p-1 bg-slate-100 rounded-md">
@@ -48,3 +50,4 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
     </Card>
   );
 };
+export default UserInfo;

@@ -6,6 +6,7 @@
 export const publicRoutes = [
   "/",
   "/auth/new-verification",
+  "/auth/termsOfService",
   "/api/auth/new-verification",
   "/api/search",
 ];
@@ -25,7 +26,6 @@ export const authRoutes = [
   "/api/auth/register",
   "/api/auth/reset",
   "/api/auth/new-password",
-  "/auth/termsOfService",
 ];
 
 /**
