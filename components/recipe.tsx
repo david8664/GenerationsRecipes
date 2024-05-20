@@ -63,7 +63,6 @@ const Recipe = () => {
     };
     fetchRecipe();
   }, []);
-  console.log(recipe);
 
   const getIngredientUnit = async (unit: string) => {
     const unitTranslateTHebrew = await translateApiMessage.ingredientUnit(unit);
