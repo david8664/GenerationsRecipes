@@ -4,7 +4,7 @@ import { Assistant } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
-import Navbar from "@/components/shared/navbar.tsx";
+import Navbar from "@/components/shared/navbar";
 import Foot from "@/components/shared/footer";
 
 const assistant = Assistant({
