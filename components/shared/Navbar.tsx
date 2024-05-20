@@ -9,7 +9,7 @@ import MobileMenu from "@/components/shared/mobile-menu";
 import SearchBar from "@/components/shared/search-bar";
 import UserButton from "@/components/auth/user-button";
 
-export const Navbar = () => {
+const Navbar = () => {
   const pathname = usePathname();
   const userId = useCurrentUser()?.id;
   return (
@@ -71,3 +71,4 @@ export const Navbar = () => {
     </header>
   );
 };
+export default Navbar;
