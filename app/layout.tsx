@@ -4,9 +4,8 @@ import { Assistant } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
-// import Navbar from "@/components/shared/navbar";
+import { Navbar } from "@/components/shared/navbar";
 import Foot from "@/components/shared/footer";
-
 
 const assistant = Assistant({
   subsets: ["hebrew", "latin"],
@@ -19,12 +18,12 @@ export const metadata: Metadata = {
   keywords: "recipes, family, cooking, traditional, modern",
   authors: [{ name: "David" }],
   robots: "index, follow",
-  metadataBase: new URL("https://www.generationsrecipes.com"), // change my domain name
+  metadataBase: new URL("https://generations-recipes.vercel.app"), // change my domain name
   openGraph: {
     title: "GenerationsRecipes",
     description: "Timeless Family Recipes, Old and New.",
     type: "website",
-    url: "https://www.generationsrecipes.com", // change my domain name
+    url: "https://generations-recipes.vercel.app", // change my domain name
     images: {
       url: "./favicon.ico",
       width: 1200,
@@ -64,7 +63,7 @@ export default async function RootLayout({
       >
         <SessionProvider session={session}>
           <div className="flex-grow">
-            {/* <Navbar /> */}
+            <Navbar />
             <main className="flex flex-col justify-center items-center py-8">
               {children}
             </main>
