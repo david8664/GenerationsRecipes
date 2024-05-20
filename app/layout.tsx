@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import Navbar from "@/components/shared/navbar";
 import Foot from "@/components/shared/footer";
+import MobileMenu from "@/components/shared/mobile-menu";
 
 const assistant = Assistant({
   subsets: ["hebrew", "latin"],
@@ -63,7 +64,10 @@ export default async function RootLayout({
       >
         <SessionProvider session={session}>
           <div className="flex-grow">
-            <Navbar />
+            <header className="h-16 w-full flex justify-between items-center px-6 bg-white shadow-sm">
+              <Navbar />
+              <MobileMenu />
+            </header>
             <main className="flex flex-col justify-center items-center py-8">
               {children}
             </main>
