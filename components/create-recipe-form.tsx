@@ -131,7 +131,7 @@ const CreateRecipeForm = () => {
   };
 
   return (
-    <Card className="flex flex-col items-center">
+    <Card className="flex flex-col flex-wrap items-center">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">יצירת מתכון</p>
       </CardHeader>
