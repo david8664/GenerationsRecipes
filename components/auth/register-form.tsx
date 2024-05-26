@@ -90,8 +90,37 @@ const RegisterForm = () => {
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="flex flex-row gap-4">
-            <div className="space-y-4 justify-evenly">
+          <div className="flex flex-row-reverse gap-4 flex-wrap justify-center">
+            <div onClick={handleSelectImage} className="h-fit">
+              <input
+                type="file"
+                disabled={isPending}
+                accept="image/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+              />
+              <div className="cursor-pointer bg-slate-300 rounded-lg p-4">
+                {!imageUrl ? (
+                  <div className=" flex flex-col justify-center items-center">
+                    <CgProfile size={120} />
+                    <span className="text-lg text-center">
+                      בחירת תמונת פרופיל
+                    </span>
+                  </div>
+                ) : (
+                  <Avatar className="h-32 w-32">
+                    <AvatarImage src={imageUrl} />
+                    <AvatarFallback>
+                      פר
+                      <CgProfile size={120} />
+                    </AvatarFallback>
+                  </Avatar>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-4 flex flex-col justify-center items-center">
               <FormField
                 control={form.control}
                 name="fullName"
@@ -269,34 +298,6 @@ const RegisterForm = () => {
                   </FormItem>
                 )}
               />
-            </div>
-            <div onClick={handleSelectImage} className="h-fit">
-              <input
-                type="file"
-                disabled={isPending}
-                accept="image/*"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={handleImageUpload}
-              />
-              <div className="cursor-pointer bg-slate-200 rounded-lg p-4 flex flex-col justify-center items-center">
-                {!imageUrl ? (
-                  <div>
-                    <CgProfile size={120} />
-                    <span className="text-lg text-center">
-                      בחירת תמונת פרופיל
-                    </span>
-                  </div>
-                ) : (
-                  <Avatar className="h-32 w-32">
-                    <AvatarImage src={imageUrl} />
-                    <AvatarFallback>
-                      פר
-                      <CgProfile size={120} />
-                    </AvatarFallback>
-                  </Avatar>
-                )}
-              </div>
             </div>
           </div>
           <FormError message={error} />
