@@ -7,7 +7,7 @@ const SettingPage = () => {
   const user = useCurrentUser();
   if (!user) return;
   return (
-    <div className="bg-white p-10 rounded-xl w-1/2 flex flex-col items-center">
+    <div className="bg-white p-10 rounded-xl w-2/3 flex flex-col items-center">
       <h1>דף הגדרות</h1>
       <UserInfo label="פרופיל" user={user} />
       <form>
