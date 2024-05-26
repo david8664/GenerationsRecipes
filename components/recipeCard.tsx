@@ -16,12 +16,12 @@ const RecipeCard = ({
   const router = useRouter();
 
   return (
-    <div className="w-1/5 h-60 bg-slate-400 border rounded-md flex flex-col flex-wrap">
+    <div className="w-52 h-60 bg-slate-400 border rounded-md flex flex-col flex-wrap">
       <div
         className="relative w-full h-1/3 hover:h-24 cursor-pointer"
         onClick={() => router.push(`/p/${chefNickname}/${id}`)}
       >
-        <header className="z-10 backdrop-blur absolute top-4 right-4">
+        <header className="z-10 backdrop-blur absolute top-4">
           {name} - {chefNickname}
         </header>
         <Image alt="תמונה להמחשה" src={illustrationImage} fill />

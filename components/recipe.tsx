@@ -74,10 +74,10 @@ const Recipe = () => {
       <div className="w-full h-32 border rounded-b-md relative">
         <Image alt="תמונה להמחשה" src={recipe?.illustrationImage || ""} fill />
       </div>
-      <header className="font-semibold text-3xl text-center">
+      <header className="font-semibold text-3xl text-center w-full">
         {recipe?.name}
       </header>
-      <div className="border border-b-black flex flex-row justify-evenly text-xl font-light pb-2">
+      <div className="border border-b-black flex flex-wrap justify-evenly text-xl font-light pb-2 w-full">
         <div className="flex flex-row gap-2">
           <h3>כמות הגשה:</h3>
           <span> {recipe?.recipeYield}</span>
@@ -91,7 +91,7 @@ const Recipe = () => {
           <span>{recipe?.uploadTime}</span>
         </div>
       </div>
-      <div className="flex flex-row justify-evenly">
+      <div className="flex flex-col sm:flex-row justify-evenly">
         <div>
           <h6 className="font-medium text-2xl">אופן הכנה</h6>
           <p>{recipe?.preparationMethod}</p>

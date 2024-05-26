@@ -7,7 +7,7 @@ const Foot = () => {
             &copy; {new Date().getFullYear()} GenerationsRecipes. כל הזכויות
             שמורות.
           </div>
-          <nav className="space-x-4">
+          <nav className="space-x-4 flex flex-col w-fit mr-4">
             <a href="/auth/termsOfService" className="hover:underline text-sm ml-4">
               תנאי שירות
             </a>
