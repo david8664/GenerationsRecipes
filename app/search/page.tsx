@@ -5,10 +5,10 @@ import { useSearchParams } from "next/navigation";
 
 export default function Search() {
   const searchParams = useSearchParams();
-  const search = searchParams.get("search")?.trim() ?? "";
+  const search = searchParams.get("search")?.trim() as string;
   return (
     <div className="w-2/3">
-      <Recipes search={search} />
+      <Recipes endpoint={`/search?q=${search}`} />
     </div>
   );
 }

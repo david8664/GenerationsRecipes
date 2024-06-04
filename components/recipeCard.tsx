@@ -24,10 +24,17 @@ const RecipeCard = ({
         <header className="z-10 backdrop-blur absolute top-4">
           {name} - {chefNickname}
         </header>
-        <Image alt="תמונה להמחשה" src={illustrationImage} fill />
+        {illustrationImage ? (
+          <Image alt="תמונה להמחשה" src={illustrationImage} fill />
+        ) : (
+          <div className="bg-gray-600" />
+        )}
       </div>
       <div className="flex flex-col flex-wrap relative h-32 px-2">
-        <Avatar className="mr-4 -mt-4">
+        <Avatar
+          className="mr-4 -mt-4 cursor-pointer"
+          onClick={() => router.push(`/p/${chefNickname}`)}
+        >
           <AvatarImage src={chefPhoto} />
           <AvatarFallback>
             <LuChefHat />

@@ -1,13 +1,13 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import api from "@/lib/apiCalls";
 import Image from "next/image";
 import translateApiMessage from "@/Functions/utils/translateApiMessage";
 import formatDateForIsrael from "@/lib/formatDateForIsrael";
+import { useRouter } from "next/navigation";
 
-interface Ingredient {
+interface IngredientProps {
   name: string;
   amount: number;
   unit: string;
@@ -26,18 +26,25 @@ interface RecipeProps {
   recipeYield: number;
   allergens: string[];
   uploadTime: string;
-  ingredients: Ingredient[];
+  ingredients: IngredientProps[];
 }
-const Recipe = () => {
-  const pathName = usePathname();
-  const userId = pathName.split("/")[2];
-  const recipeId = pathName.split("/").pop();
+
+const Recipe = ({
+  chefNickname,
+  recipeId,
+}: {
+  chefNickname: string;
+  recipeId: string;
+}) => {
   const [recipe, setRecipe] = useState<RecipeProps>();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const { message } = await api.get<any>(`/p/${userId}/${recipeId}`);
+        const { message } = await api.get<any>(
+          `/p/${chefNickname}/${recipeId}`
+        );
         setRecipe({
           illustrationImage: message.illustrationImage,
           chefPhoto: message.User.image,
@@ -51,14 +58,16 @@ const Recipe = () => {
           recipeYield: message.yield,
           allergens: message.allergens,
           uploadTime: formatDateForIsrael(message.uploadTime, false),
-          ingredients: message.ingredients.map((ingredient: Ingredient) => ({
-            name: ingredient.name,
-            amount: ingredient.amount,
-            unit: getIngredientUnit(ingredient.unit),
-          })),
+          ingredients: message.ingredients.map(
+            (ingredient: IngredientProps) => ({
+              name: ingredient.name,
+              amount: ingredient.amount,
+              unit: getIngredientUnit(ingredient.unit),
+            })
+          ),
         });
       } catch (error) {
-        // TODO: Navigate to not found page | error page
+        router.push("/NOT_FOUND")
       }
     };
     fetchRecipe();

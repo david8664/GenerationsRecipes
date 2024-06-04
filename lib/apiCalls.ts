@@ -10,7 +10,7 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_SERVER_URL;
 
 // Define the shape of the API object with methods for each HTTP verb
 interface ApiProps {
-  get<T = string>(endpoint: string, payload?: object): Promise<ApiResponse<T>>;
+  get<T = string>(endpoint: string): Promise<ApiResponse<T>>;
   post<T = string>(endpoint: string, payload: object): Promise<ApiResponse<T>>;
   put<T = string>(endpoint: string, payload: object): Promise<ApiResponse<T>>;
   delete<T = string>(endpoint: string): Promise<ApiResponse<T>>;
@@ -26,10 +26,8 @@ interface ApiProps {
  * @property {function} delete - Makes a DELETE request to the specified endpoint.
  */
 const api: ApiProps = {
-  get: async <T = string>(
-    endpoint: string,
-    payload?: object
-  ): Promise<ApiResponse<T>> => await apiCalls("GET", endpoint, (payload = {})),
+  get: async <T = string>(endpoint: string): Promise<ApiResponse<T>> =>
+    await apiCalls("GET", endpoint),
   post: async <T = string>(
     endpoint: string,
     payload: object
@@ -55,7 +53,7 @@ const api: ApiProps = {
 async function apiCalls<T = string>(
   method: string,
   endpoint: string,
-  payload: object
+  payload?: object
 ): Promise<ApiResponse<T>> {
   try {
     const response: AxiosResponse = await axios({
