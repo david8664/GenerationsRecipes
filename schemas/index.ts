@@ -13,6 +13,7 @@ const fullNameRegExp = /^([a-zA-Z]+(?: [a-zA-Z]+)*|[א-ת]+(?: [א-ת]+)*)$/,
   streetRegExp = /^[a-zA-Zא-ת0-9\s\-,.'\(\)]+$/,
   recipeNameRegExp = /^[a-zA-Zא-ת\s\d,.!?-]{3,50}$/,
   ingredientNameRegExp = /^[a-zA-Zא-ת\s]{1,50}$/,
+  ingredientAmountRegExp = /^(?:\d{1,4} ו-\d{1,4}\/\d|\d{1,5})$/,
   recipeDescriptionRegExp = /^[a-zA-Zא-ת\s|!#$%()?'",/]{10,70}$/,
   recipePreparationMethodRegExp = /^[a-zA-Zא-ת\s|!#$%()?'",/]{10,1500}$/,
   recipeCommentRegExp = /^[a-zA-Zא-ת\s|!#$%()?'",/]{0,200}$/,
@@ -153,14 +154,31 @@ const RecipeSchema = z.object({
           message: "השם לא תקין",
         }),
         amount: z
-          .union([z.string(), z.number()])
-          .transform((value) => parseFloat(value as string))
-          .refine((value) => !isNaN(value) && value >= 1 && value <= 1000, {
-            message: "כמות חייבת להיות בין 1 ל-1000",
-          }),
-        unit: z.enum(["GRAM", "LITER"], {
-          required_error: "יחידת המדידה חייבת להיות גרם או ליטר",
-        }),
+          .string()
+          .regex(ingredientAmountRegExp, { message: "כמות לא תקינה" }),
+        // .union([z.string(), z.number()])
+        // .transform((value) => parseFloat(value as string))
+        // .refine((value) => !isNaN(value) && value >= 1 && value <= 1000, {
+        //   message: "כמות חייבת להיות בין 1 ל-1000",
+        // }),
+        unit: z.enum(
+          [
+            `אינץ'`,
+            `גרם`,
+            `כוס`,
+            `כפית`,
+            `כף`,
+            `ליטר`,
+            `מ"ל`,
+            `מ"מ`,
+            `ס"מ`,
+            `קורט`,
+            `ק"ג`,
+          ],
+          {
+            required_error: "יחידת המדידה חייבת להיות גרם או ליטר",
+          }
+        ),
       })
     )
     .nonempty({ message: "חייב להיות לפחות מצרך אחד" }),
@@ -203,14 +221,26 @@ const IngredientSchema = z.object({
     message: "השם לא תקין",
   }),
   amount: z
-    .union([z.string(), z.number()])
-    .transform((value) => parseFloat(value as string))
-    .refine((value) => !isNaN(value) && value >= 1 && value <= 1000, {
-      message: "כמות חייבת להיות בין 1 ל-1000",
-    }),
-  unit: z.enum(["GRAM", "LITER"], {
-    required_error: "יחידת המדידה חייבת להיות גרם או ליטר",
-  }),
+    .string()
+    .regex(ingredientAmountRegExp, { message: "כמות לא תקינה" }),
+  unit: z.enum(
+    [
+      `אינץ'`,
+      `גרם`,
+      `כוס`,
+      `כפית`,
+      `כף`,
+      `ליטר`,
+      `מ"ל`,
+      `מ"מ`,
+      `ס"מ`,
+      `קורט`,
+      `ק"ג`,
+    ],
+    {
+      required_error: "יחידת מידה לא חוקית",
+    }
+  ),
 });
 
 export {
