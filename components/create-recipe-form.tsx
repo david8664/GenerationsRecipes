@@ -108,7 +108,22 @@ const CreateRecipeForm = () => {
       form
         .getValues("ingredients")
         .filter((ingredient) => ingredient.name !== ingredientToDelete) as [
-        { name: string; amount: number; unit: "GRAM" | "LITER" }
+        {
+          name: string;
+          amount: string;
+          unit:
+            | `אינץ'`
+            | `גרם`
+            | `כוס`
+            | `כפית`
+            | `כף`
+            | `ליטר`
+            | `מ"ל`
+            | `מ"מ`
+            | `ס"מ`
+            | `קורט`
+            | `ק"ג`;
+        }
       ]
     );
   };
@@ -257,7 +272,7 @@ const CreateRecipeForm = () => {
                                   כמות
                                 </th>
                                 <th className="px-4 py-2 bg-gray-200 font-semibold text-gray-700">
-                                  יחידת מדידה
+                                  יחידת משקל
                                 </th>
                               </tr>
                             </thead>

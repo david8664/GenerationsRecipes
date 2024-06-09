@@ -30,7 +30,7 @@ const UserButton = () => {
         <CreateRecipeButton>
           <DropdownMenuItem className="hover:cursor-pointer">
             <PlusIcon className="h-4 w-4 mr-auto" />
-            הוספת מתכון
+            יצירת מתכון
           </DropdownMenuItem>
         </CreateRecipeButton>
         <SettingsButton>
