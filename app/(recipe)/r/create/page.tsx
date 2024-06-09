@@ -1,5 +1,5 @@
 import CreateRecipeForm from "@/components/create-recipe-form";
-import CreateRecipeFormByScan from "@/components/create-recipe-form-by-scan";
+// import CreateRecipeFormByScan from "@/components/create-recipe-form-by-scan";
 
 const NewRecipePage = () => {
   return (
