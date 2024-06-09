@@ -177,7 +177,10 @@ const IngredientCreation = ({
                   <Command>
                     <CommandInput
                       placeholder="בחירת כמות"
-                      onInput={(e) => form.setValue("amount", e.target.value)}
+                      onInput={(e) => {
+                        const target = e.target as HTMLInputElement;
+                        form.setValue("amount", target.value);
+                      }}
                     />
                     <CommandList>
                       <CommandGroup
