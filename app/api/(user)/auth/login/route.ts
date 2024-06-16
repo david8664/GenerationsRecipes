@@ -115,6 +115,7 @@ export const POST = async (req: NextRequest) => {
       { status: 200 }
     );
   } catch (error) {
+    console.log("error: ", error);
     return NextResponse.json(
       { message: "An error occurred during authentication" },
       { status: 500 }

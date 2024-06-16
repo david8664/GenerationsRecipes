@@ -69,7 +69,6 @@ export const {
 
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
-
       return token;
     },
   },
