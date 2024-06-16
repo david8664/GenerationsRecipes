@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState, useTransition } from "react";
+import { useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { z } from "zod";
 
@@ -20,17 +20,13 @@ import {
 } from "@/components/ui/popover";
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
-import api from "@/lib/apiCalls";
 import FormError from "@/components/form-error";
-import translateApiMessage from "@/Functions/utils/translateApiMessage";
-import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -52,12 +48,25 @@ const IngredientCreation = ({
   setIngredients,
 }: IngredientCreationProps) => {
   const [error, setError] = useState<string | undefined>("");
-  const [isPending, startTransition] = useTransition();
   const [amountOpen, setAmountOpen] = useState(false);
 
-  function generateOptionsForNumber(number: string): string[] {
+  const form = useForm<z.infer<typeof IngredientSchema>>({
+    resolver: zodResolver(IngredientSchema),
+    defaultValues: {
+      name: "",
+      amount: "",
+      unit: "גרם",
+    },
+  });
+
+  const generateOptionsForAmount = (amount: string): string[] => {
+    const ingredientUnit = form.getValues("unit");
     let result = [];
-    if (number.match(/^\d+(\/\d+)*$/) && number.length < 5) {
+    if (
+      ingredientUnit === "כוס" ||
+      ingredientUnit === "כף" ||
+      ingredientUnit === "כפית"
+    ) {
       const baseFractions = [
         "1/10",
         "1/9",
@@ -78,41 +87,19 @@ const IngredientCreation = ({
         "5/6",
         "7/8",
       ];
-
-      result.push(number);
-      for (const fraction of baseFractions) {
-        if (fraction.includes(number)) {
+      const isNumberAndEndsWithSpace = /^\d+\s$/.test(amount);
+      result.push(amount);
+      baseFractions.forEach((fraction) => {
+        if (isNumberAndEndsWithSpace) {
+          result.push(`${amount} ו-${fraction}`);
+        } else if (fraction.includes(amount) && amount !== fraction) {
           result.push(fraction);
         }
-        result.push(`${number} ו-${fraction}`);
-      }
+      });
     }
+
     return result;
-  }
-
-  const form = useForm<z.infer<typeof IngredientSchema>>({
-    resolver: zodResolver(IngredientSchema),
-    defaultValues: {
-      name: "",
-      amount: "",
-      unit: "גרם",
-    },
-  });
-
-  // If I'll change my mind to use server for get ingredients, then I should use that
-  // useEffect(() => {
-  //   startTransition(() => {
-  //     const fetchCategories = async () => {
-  //       try {
-  //         const { message } = await api.get<string[]>("ingredientsServer");
-  //         setIngredientsUnits(message);
-  //       } catch (error: any) {
-  //         setError(error.message);
-  //       }
-  //     };
-  //     fetchCategories();
-  //   });
-  // }, []);
+  };
 
   const onSubmit = (data: z.infer<typeof IngredientSchema>) => {
     if (
@@ -124,9 +111,9 @@ const IngredientCreation = ({
     }
     form.reset({
       ...data,
-       name: "",
-       amount: "",
-     });
+      name: "",
+      amount: "",
+    });
     form.resetField("unit");
   };
 
@@ -143,7 +130,6 @@ const IngredientCreation = ({
                 <Input
                   {...field}
                   type="text"
-                  disabled={isPending}
                   className="rounded-full border-b-black focus-visible:ring-0 focus-visible:border-black"
                 />
               </FormControl>
@@ -187,7 +173,7 @@ const IngredientCreation = ({
                         className="cursor-pointer hover:bg-gray-300 text-black font-bold rounded"
                         dir="center"
                       >
-                        {generateOptionsForNumber(field.value).map(
+                        {generateOptionsForAmount(field.value).map(
                           (option, index) => (
                             <CommandItem
                               value={option}
@@ -255,7 +241,6 @@ const IngredientCreation = ({
           type="button"
           onClick={form.handleSubmit(onSubmit)}
           className="w-full"
-          disabled={isPending}
         >
           הוסף
         </Button>

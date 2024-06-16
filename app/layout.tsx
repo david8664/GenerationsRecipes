@@ -58,7 +58,7 @@ export default async function RootLayout({
 
       <body
         className={cn(
-          "bg-background font-sans antialiased text-gray-900 h-full w-screen bg-blue-400 flex flex-col",
+          "bg-background font-sans antialiased text-neutral-200 h-full w-screen bg-zinc-800 flex flex-col",
           assistant.className
         )}
       >

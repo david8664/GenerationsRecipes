@@ -13,7 +13,8 @@ const fullNameRegExp = /^([a-zA-Z]+(?: [a-zA-Z]+)*|[א-ת]+(?: [א-ת]+)*)$/,
   streetRegExp = /^[a-zA-Zא-ת0-9\s\-,.'\(\)]+$/,
   recipeNameRegExp = /^[a-zA-Zא-ת\s\d,.!?-]{3,50}$/,
   ingredientNameRegExp = /^[a-zA-Zא-ת\s]{1,50}$/,
-  ingredientAmountRegExp = /^(?:\d{1,4} ו-\d{1,4}\/\d|\d{1,5})$/,
+  fractionalAmountRegExp =
+    /^ו-?\s*(?:1\/10|1\/9|1\/8|1\/7|1\/6|1\/5|1\/4|1\/3|1\/2|2\/5|2\/3|3\/8|3\/5|3\/4|4\/5|5\/8|5\/6|7\/8)$/,
   recipeDescriptionRegExp = /^[a-zA-Zא-ת\s|!#$%()?'",/]{10,70}$/,
   recipePreparationMethodRegExp = /^[a-zA-Zא-ת\s|!#$%()?'",/]{10,1500}$/,
   recipeCommentRegExp = /^[a-zA-Zא-ת\s|!#$%()?'",/]{0,200}$/,
@@ -62,7 +63,7 @@ const RegisterSchema = z
           "הסיסמה חייבת להיות באורך של 8-32 תווים עם אות גדולה, קטנה ותוו מיוחד",
       })
       .optional(),
-    city: z.string().regex(cityRegExp, { message: "שדה חובה" }),
+    city: z.string().regex(cityRegExp, { message: "שדה חובה" }).optional(),
     neighborhood: z
       .string()
       .regex(neighborhoodRegExp, { message: "שדה חובה" })
@@ -149,37 +150,64 @@ const RecipeSchema = z.object({
     .regex(recipeDescriptionRegExp, { message: "ערך לא תקין" }),
   ingredients: z
     .array(
-      z.object({
-        name: z.string().regex(ingredientNameRegExp, {
-          message: "השם לא תקין",
-        }),
-        amount: z
-          .string()
-          .regex(ingredientAmountRegExp, { message: "כמות לא תקינה" }),
-        // .union([z.string(), z.number()])
-        // .transform((value) => parseFloat(value as string))
-        // .refine((value) => !isNaN(value) && value >= 1 && value <= 1000, {
-        //   message: "כמות חייבת להיות בין 1 ל-1000",
-        // }),
-        unit: z.enum(
-          [
-            `אינץ'`,
-            `גרם`,
-            `כוס`,
-            `כפית`,
-            `כף`,
-            `ליטר`,
-            `מ"ל`,
-            `מ"מ`,
-            `ס"מ`,
-            `קורט`,
-            `ק"ג`,
-          ],
+      z
+        .object({
+          name: z.string().regex(ingredientNameRegExp, {
+            message: "השם לא תקין",
+          }),
+          amount: z.string(),
+          unit: z.enum(
+            [
+              `אינץ'`,
+              `גרם`,
+              `כוס`,
+              `כפית`,
+              `כף`,
+              `ליטר`,
+              `מ"ל`,
+              `מ"מ`,
+              `ס"מ`,
+              `קורט`,
+              `ק"ג`,
+            ],
+            {
+              required_error: "יחידת המדידה חייבת להיות גרם או ליטר",
+            }
+          ),
+        })
+        .refine(
+          (ingredient) => {
+            const min = 1;
+            const max = 10;
+            const amount = parseFloat(ingredient.amount);
+
+            switch (ingredient.unit) {
+              case `אינץ'`:
+              case `ליטר`:
+              case `מ"מ`:
+              case `ס"מ`:
+              case `קורט`:
+              case `ק"ג`:
+                return amount >= min && amount <= max;
+              case `כוס`:
+              case `כפית`:
+              case `כף`:
+                return (
+                  (amount >= min && amount <= max) ||
+                  fractionalAmountRegExp.test(ingredient.amount)
+                );
+              case `גרם`:
+              case `מ"ל`:
+                return amount >= 1 && amount <= 10000;
+              default:
+                return true;
+            }
+          },
           {
-            required_error: "יחידת המדידה חייבת להיות גרם או ליטר",
+            message: "כמות לא תקינה",
+            path: ["amount"],
           }
-        ),
-      })
+        )
     )
     .nonempty({ message: "חייב להיות לפחות מצרך אחד" }),
   preparationMethod: z
@@ -216,32 +244,64 @@ const RecipeSchema = z.object({
     })
     .optional(),
 });
-const IngredientSchema = z.object({
-  name: z.string().regex(ingredientNameRegExp, {
-    message: "השם לא תקין",
-  }),
-  amount: z
-    .string()
-    .regex(ingredientAmountRegExp, { message: "כמות לא תקינה" }),
-  unit: z.enum(
-    [
-      `אינץ'`,
-      `גרם`,
-      `כוס`,
-      `כפית`,
-      `כף`,
-      `ליטר`,
-      `מ"ל`,
-      `מ"מ`,
-      `ס"מ`,
-      `קורט`,
-      `ק"ג`,
-    ],
+
+const IngredientSchema = z
+  .object({
+    name: z.string().regex(ingredientNameRegExp, {
+      message: "השם לא תקין",
+    }),
+    amount: z.string(),
+    unit: z.enum(
+      [
+        `אינץ'`,
+        `גרם`,
+        `כוס`,
+        `כפית`,
+        `כף`,
+        `ליטר`,
+        `מ"ל`,
+        `מ"מ`,
+        `ס"מ`,
+        `קורט`,
+        `ק"ג`,
+      ],
+      {
+        required_error: "יחידת מידה לא חוקית",
+      }
+    ),
+  })
+  .refine(
+    (ingredient) => {
+      const min = 1;
+      const max = 10;
+      const amount = parseFloat(ingredient.amount);
+      switch (ingredient.unit) {
+        case `אינץ'`:
+        case `ליטר`:
+        case `מ"מ`:
+        case `ס"מ`:
+        case `קורט`:
+        case `ק"ג`:
+          return amount >= min && amount <= max;
+        case `כוס`:
+        case `כפית`:
+        case `כף`:
+          return (
+            (amount >= min && amount <= max) ||
+            fractionalAmountRegExp.test(ingredient.amount)
+          );
+        case `גרם`:
+        case `מ"ל`:
+          return amount >= 1 && amount <= 10000;
+        default:
+          return true;
+      }
+    },
     {
-      required_error: "יחידת מידה לא חוקית",
+      message: "כמות לא תקינה",
+      path: ["amount"],
     }
-  ),
-});
+  );
 
 export {
   LoginSchema,
