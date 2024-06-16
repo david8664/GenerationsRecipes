@@ -60,7 +60,7 @@ export const POST = async (req: NextRequest) => {
 
     const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const hashCity = await bcrypt.hash(city, SALT_ROUNDS);
+    const hashCity = city ? await bcrypt.hash(city, SALT_ROUNDS) : "";
     const hashNeighborhood = await bcrypt.hash(
       neighborhood as string,
       SALT_ROUNDS
