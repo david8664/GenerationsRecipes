@@ -48,8 +48,10 @@ const LoginForm = () => {
 
     startTransition(async () => {
       try {
-        const { message } = await api.post("/auth/login", values);
-        const translateMessage = await translateApiMessage.login(message);
+        const { message, status } = await api.post("/auth/login", values);
+        const translateMessage = await translateApiMessage.login(
+          message || "User successfully authenticated"
+        );
         setSuccess(translateMessage);
         if (message === "Two-factor email sent!") {
           setShowTwoFactor(true);

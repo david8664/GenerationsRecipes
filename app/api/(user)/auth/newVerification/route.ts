@@ -5,6 +5,9 @@ export const POST = async (req: NextRequest) => {
   try {
     const { token } = await req.json();
 
+    // const existingToken = await db.verificationToken.findUnique({
+    //   where: { token },
+    // });
     const existingToken = await db.verificationToken.findUnique({
       where: { token },
     });

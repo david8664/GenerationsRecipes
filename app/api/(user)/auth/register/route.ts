@@ -7,22 +7,12 @@ import type { NextRequest } from "next/server";
 import { generateVerificationToken } from "@/lib/tokens";
 import sendVerificationEmail from "@/lib/email/sendVerificationEmail";
 
-// Custom error class for validation errors
-class ValidationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "ValidationError";
-  }
-}
-
 export const POST = async (req: NextRequest) => {
   try {
     const validatedFields = RegisterSchema.safeParse(await req.json());
 
     if (!validatedFields.success) {
-      throw new ValidationError(
-        "Please check the provided information and try again."
-      );
+      throw { message: "Please check the provided information and try again." };
     }
 
     const {
@@ -39,15 +29,17 @@ export const POST = async (req: NextRequest) => {
 
     const nicknameExists = await db.user.findUnique({ where: { nickname } });
     if (nicknameExists)
-      throw new ValidationError(
-        "The nickname you've chosen is already in use. Please choose a different one."
-      );
+      throw {
+        message:
+          "The nickname you've chosen is already in use. Please choose a different one.",
+      };
 
     const emailExists = await db.user.findUnique({ where: { email } });
     if (emailExists)
-      throw new ValidationError(
-        "The email address you've provided is already registered. Please use a different email address."
-      );
+      throw {
+        message:
+          "The email address you've provided is already registered. Please use a different email address.",
+      };
 
     let uploadedProfilePicture = null;
     if (profilePicture) {
@@ -60,13 +52,10 @@ export const POST = async (req: NextRequest) => {
 
     const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const hashCity = city ? await bcrypt.hash(city, SALT_ROUNDS) : "";
-    const hashNeighborhood = await bcrypt.hash(
-      neighborhood as string,
-      SALT_ROUNDS
-    );
-    const hashStreet = await bcrypt.hash(street as string, SALT_ROUNDS);
-    const hashPhone = await bcrypt.hash(phone as string, SALT_ROUNDS);
+    const hashCity = await bcrypt.hash(city || "", SALT_ROUNDS);
+    const hashNeighborhood = await bcrypt.hash(neighborhood || "", SALT_ROUNDS);
+    const hashStreet = await bcrypt.hash(street || "", SALT_ROUNDS);
+    const hashPhone = await bcrypt.hash(phone || "", SALT_ROUNDS);
 
     await db.user.create({
       data: {
@@ -79,6 +68,7 @@ export const POST = async (req: NextRequest) => {
         street: hashStreet,
         phone: hashPhone,
         image: uploadedProfilePicture,
+        role: "USER"
       },
     });
     const verificationToken = await generateVerificationToken(email);
@@ -92,10 +82,11 @@ export const POST = async (req: NextRequest) => {
       },
       { status: 201 }
     );
-  } catch (error) {
-    if (error instanceof ValidationError) {
+  } catch (error: { message: string } | any) {
+    if (error?.message) {
       return NextResponse.json({ message: error.message }, { status: 400 });
     }
+
     return NextResponse.json(
       { message: "An unexpected error occurred. Please try again later." },
       { status: 500 }

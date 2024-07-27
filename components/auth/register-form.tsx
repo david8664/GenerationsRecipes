@@ -65,16 +65,21 @@ const RegisterForm = () => {
     setImageUrl(newImageUrl);
     form.setValue("profilePicture", newImageUrl);
   };
-
+  
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
     setSuccess("");
 
     startTransition(async () => {
       try {
-        await api.post("/auth/register", values);
+        console.log("register page test");
+        
+        const { message } = await api.post("/auth/register", values);
+        console.log("message:", message);
         setSuccess("יש לאמת הרשמה במייל!");
       } catch (error: any) {
+        console.error("error:", error);
+
         const errorMessage = await translateApiMessage.register(error.message);
         setError(errorMessage);
       }

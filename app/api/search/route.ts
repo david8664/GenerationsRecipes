@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { NextResponse, type NextRequest } from "next/server";
 
+
 export const GET = async (req: NextRequest) => {
   try {
     const searchParams = req.nextUrl.searchParams;
@@ -10,8 +11,6 @@ export const GET = async (req: NextRequest) => {
     // TODO: add orderBy option
 
     const skip = (page - 1) * limit;
-
-    // recipeId: { condition: { id: searchValue } },
 
     const data = await db.recipe.findMany({
       where: {

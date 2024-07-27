@@ -64,7 +64,7 @@ async function apiCalls<T = string>(
       url: endpoint,
       data: payload,
     });
-    if (response.status !== 200) throw response;
+    if (response.status < 200 && response.status > 299) throw response;
     return { message: response.data.message, status: response.status };
   } catch (error: any) {
     throw {

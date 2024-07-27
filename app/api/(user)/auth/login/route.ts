@@ -28,6 +28,7 @@ export const POST = async (req: NextRequest) => {
         { status: 404 }
       );
     }
+
     // Generate new email verification token
     if (!existingUser.emailVerified) {
       const verificationToken = await generateVerificationToken(
@@ -38,12 +39,14 @@ export const POST = async (req: NextRequest) => {
         verificationToken.email,
         verificationToken.token
       );
+
       return NextResponse.json(
         { message: "Confirmation email sent!" },
         { status: 200 }
       );
     }
 
+    // verification TwoFactor
     if (existingUser.isTwoFactorEnabled && existingUser.email) {
       if (code) {
         const twoFactorToken = await db.twoFactorToken.findFirst({
@@ -87,38 +90,27 @@ export const POST = async (req: NextRequest) => {
       }
     }
 
-    try {
-      await signIn("credentials", {
-        email,
-        password,
-        redirectTo: DEFAULT_LOGIN_REDIRECT,
-      });
-    } catch (error) {
-      if (error instanceof AuthError) {
-        switch (error.type) {
-          case "CredentialsSignin":
-            return NextResponse.json(
-              { message: "Invalid credentials" },
-              { status: 401 }
-            );
-          default:
-            return NextResponse.json(
-              { message: "An error occurred during authentication" },
-              { status: 500 }
-            );
-        }
-      }
-      throw error;
-    }
-    return NextResponse.json(
-      { message: "The user has been authenticated successfully" },
-      { status: 200 }
-    );
+    await signIn("credentials", {
+      email,
+      password,
+      redirect: true,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
+    });
   } catch (error) {
-    console.log("error: ", error);
-    return NextResponse.json(
-      { message: "An error occurred during authentication" },
-      { status: 500 }
-    );
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return NextResponse.json(
+            { message: "Invalid credentials" },
+            { status: 401 }
+          );
+        default:
+          return NextResponse.json(
+            { message: "An error occurred during authentication" },
+            { status: 500 }
+          );
+      }
+    }
+    throw error;
   }
 };

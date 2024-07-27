@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import authConfig from "@/auth.config";
+
 import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
@@ -19,6 +20,7 @@ const isAdminRoute = (pathname: string): boolean =>
 // Helper function to handle redirection
 const redirectTo = (url: string, nextUrl: URL): Response =>
   Response.redirect(new URL(url, nextUrl));
+
 
 export default auth(async (req) => {
   const { nextUrl } = req;
