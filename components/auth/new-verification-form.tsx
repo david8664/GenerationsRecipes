@@ -22,8 +22,11 @@ const NewVerificationForm = () => {
       return;
     }
     try {
-      await api.post("/auth/newVerification", { token });
-      setSuccess("אומתת בהצלחה!");
+      const { message, status } = await api.post("/auth/newVerification", {
+        token,
+      });
+
+      setSuccess("אומת בהצלחה!");
     } catch (error: any) {
       const translateMessage = await translateApiMessage.newVerification(
         error.message

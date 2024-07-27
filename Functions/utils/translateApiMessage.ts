@@ -13,7 +13,7 @@ interface TranslateApiMessageProps {
 const translateApiMessage: TranslateApiMessageProps = {
   login: async (message: string) => {
     const messages: { [key: string]: string } = {
-      "User successfully authenticated": "אומתת בהצלחה",
+      "User successfully authenticated": "אומת בהצלחה",
       "Confirmation email sent!": "אימות נשלח במייל!",
       "Two-factor email sent!": "אימות דו-שלבי נשלח במייל",
       "Invalid code!": "קוד לא תקין!",
